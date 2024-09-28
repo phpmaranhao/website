@@ -134,38 +134,41 @@
 					$message.classList.remove('visible');
 				};
 
-			// Events.
-			// Note: If you're *not* using AJAX, get rid of this event listener.
-				$form.addEventListener('submit', function(event) {
-
-					event.stopPropagation();
+				$form.addEventListener('submit', async function(event) {
 					event.preventDefault();
+					event.stopPropagation();
+					$message._hide();
+					$submit.disabled = true;
 
-					// Hide message.
-						$message._hide();
-
-					// Disable submit.
-						$submit.disabled = true;
-
-					// Process form.
-					// Note: Doesn't actually do anything yet (other than report back with a "thank you"),
-					// but there's enough here to piece together a working AJAX submission call that does.
-						window.setTimeout(function() {
-
-							// Reset form.
-								$form.reset();
-
-							// Enable submit.
-								$submit.disabled = false;
-
-							// Show message.
+					var data = new FormData(event.target);
+					data.append('message', 'Me avisem sobre o lançamento do site');
+					fetch(event.target.action, {
+						method: event.target.method,
+						body: data,
+						headers: {
+							'Accept': 'application/json'
+						}
+					}).then(response => {
+						if (response.ok) {
+							window.setTimeout(function() {
 								$message._show('success', 'Pode deixar que a gente te avisa!');
-								//$message._show('failure', 'Something went wrong. Please try again.');
-
+								$form.reset();
+								$submit.disabled = false;
+							}, 750);
+						} else {
+							response.json().then(data => {
+								window.setTimeout(function() {
+									$message._show('failure', 'Ops! Um código Java antigo parou. Vamos refazer em PHP pra você tentar de novo.');
+									$submit.disabled = false;
+								}, 750);
+							});
+						}
+					}).catch(error => {
+						window.setTimeout(function() {
+							$message._show('failure', 'Ops! Um código Java antigo parou. Vamos refazer em PHP pra você tentar de novo.');
+							$submit.disabled = false;
 						}, 750);
-
+					});
 				});
-
 		})();
-
 })();
