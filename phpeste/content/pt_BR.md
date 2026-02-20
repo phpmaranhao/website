@@ -33,8 +33,34 @@ Comunidades
 
 <!-- section:programacao -->
 # Agenda
-## Três dias de conteúdo técnico de alto nível
-Em breve divulgaremos a grade completa de palestras e workshops.
+## Três salas · Dois dias de palestras
+
+[schedule-day:Qui · 15/10]
+[day-note:Dia de turismo · Roteiros em São Luís e nos Lençóis Maranhenses.]
+
+[schedule-day:Sex · 16/10]
+[rooms:Auditório Encantaria|Sala Ilha|Sala Terreiro]
+[slot:08:00|credenciamento]
+[slot:09:00|Tema a definir|Tema a definir|Tema a definir]
+[slot:10:00|Tema a definir|Tema a definir|Tema a definir]
+[slot:11:00|Tema a definir|Tema a definir|Tema a definir]
+[lunch:12:00]
+[slot:14:00|Tema a definir|Tema a definir|Tema a definir]
+[slot:15:00|Tema a definir|Tema a definir|Tema a definir]
+[slot:16:00|Tema a definir|Tema a definir|Tema a definir]
+[slot:17:00|Tema a definir|Tema a definir|Tema a definir]
+
+[schedule-day:Sáb · 17/10]
+[rooms:Auditório Encantaria|Sala Ilha|Sala Terreiro]
+[slot:08:00|Tema a definir|Tema a definir|Tema a definir]
+[slot:09:00|Tema a definir|Tema a definir|Tema a definir]
+[slot:10:00|Tema a definir|Tema a definir|Tema a definir]
+[slot:11:00|Tema a definir|Tema a definir|Tema a definir]
+[lunch:12:00]
+[slot:14:00|Tema a definir|Tema a definir|Tema a definir]
+[slot:15:00|Tema a definir|Tema a definir|Tema a definir]
+[slot:16:00|Tema a definir|Tema a definir|Tema a definir]
+[slot:17:00|Tema a definir|Tema a definir|Tema a definir]
 
 <!-- section:palestrantes -->
 # Palestrantes
@@ -49,6 +75,7 @@ São Luís é a única capital brasileira fundada pelos franceses e Patrimônio 
 
 O PHPeste 2026 acontece no **Auditório do CEUMA Renascença**, em São Luís, Maranhão.
 [map:https://maps.app.goo.gl/GycojkFvjLgWLeST8|Ver no Google Maps]
+[waze:https://ul.waze.com/ul?ll=-2.50227382%2C-44.28401113|Dirigir com Waze]
 
 <!-- section:patrocinadores -->
 # Patrocinadores

@@ -132,9 +132,10 @@
     const bodyEl = document.getElementById(bodyId);
     if (!bodyEl) return;
 
-    // Tokens especiais: [ticket:...], [map:...], [cta:...]
+    // Tokens especiais: [ticket:...], [map:...], [waze:...], [cta:...]
     const ticketLines = secLines.filter(l => l.startsWith('[ticket:'));
     const mapLine     = secLines.find(l => l.startsWith('[map:'));
+    const wazeLine    = secLines.find(l => l.startsWith('[waze:'));
     const ctaLine     = secLines.find(l => l.startsWith('[cta:'));
 
     // Linhas de conteúdo puro (sem tokens e sem headings h1/h2)
@@ -143,17 +144,24 @@
       !l.startsWith('## ') &&
       !l.startsWith('[ticket:') &&
       !l.startsWith('[map:') &&
+      !l.startsWith('[waze:') &&
       !l.startsWith('[cta:')
     );
 
     let html = bodyLines.length ? mdToHtml(bodyLines.join('\n')) : '';
 
-    // Renderiza link do mapa
-    if (mapLine) {
-      const [, url, label] = mapLine.match(/\[map:([^|]+)\|([^\]]+)\]/) || [];
-      if (url) {
-        html += `<p class="map-link"><a href="${url}" target="_blank" rel="noopener" class="btn btn-outline-dark">${label} ↗</a></p>`;
+    // Renderiza links de localização (mapa + waze)
+    if (mapLine || wazeLine) {
+      let btns = '';
+      if (mapLine) {
+        const [, url, label] = mapLine.match(/\[map:([^|]+)\|([^\]]+)\]/) || [];
+        if (url) btns += `<a href="${url}" target="_blank" rel="noopener" class="btn btn-outline-dark">${label} ↗</a>`;
       }
+      if (wazeLine) {
+        const [, url, label] = wazeLine.match(/\[waze:([^|]+)\|([^\]]+)\]/) || [];
+        if (url) btns += `<a href="${url}" target="_blank" rel="noopener" class="btn btn-outline-dark">${label} ↗</a>`;
+      }
+      html += `<div class="map-links">${btns}</div>`;
     }
 
     // Renderiza cards de ingresso
@@ -188,7 +196,99 @@
     bodyEl.innerHTML = html;
   }
 
-  renderSection('programacao',   'programacaoTitle',   'programacaoSubtitle',   'programacaoBody');
+  // ── PROGRAMAÇÃO (grade de horários) ──────────────────────────
+  (function renderProgramacao() {
+    if (!sections.programacao) return;
+    const sec      = sections.programacao;
+    const secLines = lines(sec);
+
+    setHtml('programacaoTitle',    secLines.find(l => l.startsWith('# '))?.replace(/^# /, '')  || '');
+    setHtml('programacaoSubtitle', secLines.find(l => l.startsWith('## '))?.replace(/^## /, '') || '');
+
+    // Parse days
+    const days = [];
+    let cur = null;
+    secLines.forEach(line => {
+      if (line.startsWith('[schedule-day:')) {
+        const m = line.match(/\[schedule-day:([^\]]+)\]/);
+        if (m) { cur = { label: m[1], note: '', rooms: [], slots: [] }; days.push(cur); }
+      } else if (cur && line.startsWith('[day-note:')) {
+        const m = line.match(/\[day-note:([^\]]+)\]/);
+        if (m) cur.note = m[1];
+      } else if (cur && line.startsWith('[rooms:')) {
+        const m = line.match(/\[rooms:([^\]]+)\]/);
+        if (m) cur.rooms = m[1].split('|');
+      } else if (cur && line.startsWith('[slot:')) {
+        const m = line.match(/\[slot:([^\]]+)\]/);
+        if (m) {
+          const parts = m[1].split('|');
+          cur.slots.push({ time: parts[0], talks: parts.slice(1), type: 'talk' });
+        }
+      } else if (cur && line.startsWith('[lunch:')) {
+        const m = line.match(/\[lunch:([^\]]+)\]/);
+        if (m) cur.slots.push({ time: m[1], type: 'lunch' });
+      }
+    });
+
+    const bodyEl = document.getElementById('programacaoBody');
+    if (!bodyEl || !days.length) return;
+
+    function renderRow(slot, roomCount) {
+      if (slot.type === 'lunch') {
+        return `<div class="schedule-row">
+          <div class="schedule-time">${slot.time}</div>
+          <div class="schedule-cell schedule-cell-span schedule-cell-lunch">Almoço</div>
+        </div>`;
+      }
+      const isCredenciamento = slot.talks.length === 1 && slot.talks[0].toLowerCase() === 'credenciamento';
+      if (isCredenciamento) {
+        return `<div class="schedule-row">
+          <div class="schedule-time">${slot.time}</div>
+          <div class="schedule-cell schedule-cell-span schedule-cell-credenciamento">Credenciamento</div>
+        </div>`;
+      }
+      const cells = slot.talks.map(t => `
+        <div class="schedule-cell schedule-cell-talk">
+          <span class="schedule-talk-title">${t}</span>
+          <span class="schedule-talk-speaker">Palestrante a definir</span>
+        </div>`).join('');
+      return `<div class="schedule-row">${'<div class="schedule-time">' + slot.time + '</div>'}${cells}</div>`;
+    }
+
+    const tabs = days.map((day, i) => `
+      <button class="schedule-tab${i === 0 ? ' active' : ''}" data-day="${i}">
+        ${day.label}
+      </button>`).join('');
+
+    const panels = days.map((day, i) => {
+      const isTalk = day.rooms.length > 0;
+      const inner  = isTalk
+        ? `<div class="schedule-grid">
+            <div class="schedule-header">
+              <div class="schedule-time-header"></div>
+              ${day.rooms.map(r => `<div class="schedule-room">${r}</div>`).join('')}
+            </div>
+            ${day.slots.map(s => renderRow(s, day.rooms.length)).join('')}
+          </div>`
+        : `<div class="schedule-turismo">
+            <div class="schedule-turismo-icon">☀</div>
+            <p>${day.note || 'Programação em breve.'}</p>
+          </div>`;
+      return `<div class="schedule-panel${i === 0 ? ' active' : ''}" data-day="${i}">${inner}</div>`;
+    }).join('');
+
+    bodyEl.innerHTML = `<div class="schedule-tabs">${tabs}</div><div class="schedule-panels">${panels}</div>`;
+
+    bodyEl.querySelectorAll('.schedule-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const idx = tab.dataset.day;
+        bodyEl.querySelectorAll('.schedule-tab').forEach(t => t.classList.remove('active'));
+        bodyEl.querySelectorAll('.schedule-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        bodyEl.querySelector(`.schedule-panel[data-day="${idx}"]`).classList.add('active');
+      });
+    });
+  })();
   renderSection('palestrantes',  'palestrantesTitle',  'palestrantesSubtitle',  'palestrantesBody');
   renderSection('local',         'localTitle',         'localSubtitle',         'localBody');
   renderSection('patrocinadores','patrocinadoresTitle','patrocinadoresSubtitle','patrocinadoresBody');

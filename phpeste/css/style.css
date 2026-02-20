@@ -539,7 +539,12 @@ em { font-style: italic; }
 }
 
 /* ── Mapa ─────────────────────────────────────────────────── */
-.map-link { margin-top: 1.5rem; }
+.map-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin-top: 1.5rem;
+}
 .btn-outline-dark {
   background: transparent;
   color: var(--sand-lt);
@@ -626,6 +631,135 @@ em { font-style: italic; }
   margin-top: 1.5rem;
   font-size: .85rem;
   color: rgba(196,160,122,.5);
+}
+
+/* ── Schedule ────────────────────────────────────────────── */
+.schedule-tabs {
+  display: flex;
+  gap: .25rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid rgba(196,160,122,.15);
+}
+.schedule-tab {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  padding: .75rem 1.75rem;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: .85rem;
+  letter-spacing: .02em;
+  color: rgba(196,160,122,.45);
+  transition: color .2s, border-color .2s;
+  white-space: nowrap;
+}
+.schedule-tab:hover  { color: var(--sand); }
+.schedule-tab.active { color: var(--sand-lt); border-bottom-color: var(--orange); }
+
+.schedule-panel { display: none; }
+.schedule-panel.active { display: block; }
+
+/* Grid rows */
+.schedule-header,
+.schedule-row {
+  display: grid;
+  grid-template-columns: 70px 1fr 1fr 1fr;
+  gap: 2px;
+  margin-bottom: 2px;
+}
+.schedule-time-header { /* empty placeholder */ }
+.schedule-room {
+  background: rgba(196,160,122,.08);
+  color: var(--orange);
+  font-family: var(--font-body);
+  font-size: .78rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: .5rem .75rem;
+}
+.schedule-time {
+  display: flex;
+  align-items: center;
+  padding: .75rem .25rem .75rem 0;
+  color: rgba(196,160,122,.5);
+  font-family: var(--font-body);
+  font-size: .78rem;
+  letter-spacing: 0;
+}
+.schedule-cell {
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(196,160,122,.08);
+  padding: .75rem 1rem;
+  min-height: 70px;
+}
+.schedule-cell-talk {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+}
+.schedule-talk-duration {
+  font-family: var(--font-body);
+  font-size: .7rem;
+  letter-spacing: .01em;
+  color: var(--orange);
+  opacity: .7;
+}
+.schedule-talk-title {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: .85rem;
+  color: rgba(240,230,211,.35);
+}
+.schedule-talk-speaker {
+  font-family: var(--font-body);
+  font-size: .75rem;
+  color: rgba(196,160,122,.25);
+}
+
+/* Full-width cells (credenciamento, almoço) */
+.schedule-cell-span { grid-column: 2 / -1; min-height: 48px; }
+.schedule-cell-credenciamento {
+  background: rgba(212,116,58,.1);
+  border-color: rgba(212,116,58,.2);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-body);
+  font-size: .85rem; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--orange);
+}
+.schedule-cell-lunch {
+  background: rgba(245,200,40,.07);
+  border-color: rgba(245,200,40,.15);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-body);
+  font-size: .85rem; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--yellow);
+}
+
+/* Tourism day */
+.schedule-turismo {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: rgba(196,160,122,.5);
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 1.05rem;
+}
+.schedule-turismo-icon {
+  font-size: 1.75rem;
+  color: var(--orange);
+  display: block;
+  margin-bottom: 1rem;
+}
+
+/* Mobile: scroll horizontal */
+@media (max-width: 768px) {
+  .schedule-tabs { overflow-x: auto; padding-bottom: .25rem; }
+  .schedule-tab  { padding: .65rem 1.25rem; }
+  .schedule-grid { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .schedule-header,
+  .schedule-row   { min-width: 560px; }
 }
 
 /* ── Responsive ──────────────────────────────────────────── */
