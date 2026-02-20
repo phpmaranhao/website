@@ -39,7 +39,7 @@ Comunidades
 [day-note:Dia de turismo · Roteiros em São Luís e nos Lençóis Maranhenses.]
 
 [schedule-day:Sex · 16/10]
-[rooms:Auditório Encantaria|Sala Ilha|Sala Terreiro]
+[rooms:Auditório Cazumbá|Sala Catirina|Sala Pai Francisco]
 [slot:08:00|credenciamento]
 [slot:09:00|Tema a definir|Tema a definir|Tema a definir]
 [slot:10:00|Tema a definir|Tema a definir|Tema a definir]
@@ -51,7 +51,7 @@ Comunidades
 [slot:17:00|Tema a definir|Tema a definir|Tema a definir]
 
 [schedule-day:Sáb · 17/10]
-[rooms:Auditório Encantaria|Sala Ilha|Sala Terreiro]
+[rooms:Auditório Cazumbá|Sala Catirina|Sala Pai Francisco]
 [slot:08:00|Tema a definir|Tema a definir|Tema a definir]
 [slot:09:00|Tema a definir|Tema a definir|Tema a definir]
 [slot:10:00|Tema a definir|Tema a definir|Tema a definir]
