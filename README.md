@@ -1,2 +1,3 @@
-# website
-Static website for PHPMaranhão project
+# Website PHPMaranhão
+
+Site estático da comunidade PHP Maranhão
