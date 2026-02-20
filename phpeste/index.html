@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PHPeste 2026 — O maior evento PHP do Nordeste. São Luís, Maranhão.">
+  <meta name="theme-color" content="#231208">
+  <title>PHPeste 2026 — São Luís, Maranhão</title>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="PHPeste 2026 — São Luís, Maranhão">
+  <meta property="og:description" content="O maior evento PHP do Nordeste. Onde o sertão encontra a Amazônia em código.">
+  <meta property="og:url" content="https://phpeste.net">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="PHPeste">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+Dirt&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <!-- marked.js -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar" class="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo" aria-label="PHPeste 2026">
+        <img src="assets/logo.png" alt="PHPeste 2026" class="nav-logo-img" width="850" height="482">
+      </a>
+      <ul class="nav-links" id="navLinks"></ul>
+      <div class="nav-actions">
+        <a href="#ingressos" class="btn btn-primary btn-nav" id="navCta">Ingressos</a>
+        <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-nav-links" id="mobileNavLinks"></ul>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero" class="hero">
+    <div class="hero-illustration" aria-hidden="true">
+      <div class="hero-serpent"></div>
+    </div>
+    <div class="container">
+      <div class="hero-content" data-aos="fade-up" data-aos-duration="900">
+        <img src="assets/logo.png" alt="PHPeste 2026" class="hero-logo-img" id="heroLogo" width="850" height="482">
+        <div class="hero-eyebrow" id="heroDate"></div>
+        <h1 class="hero-title" id="heroTitle"></h1>
+        <p class="hero-subtitle" id="heroSubtitle"></p>
+        <div class="hero-ctas" id="heroCtas"></div>
+      </div>
+    </div>
+    <div class="hero-divider" aria-hidden="true"></div>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre" class="section section-sand">
+    <div class="container">
+      <div class="section-body" data-aos="fade-up">
+        <div class="sobre-text" id="sobreText"></div>
+        <div class="numeros-grid" id="numerosGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMAÇÃO -->
+  <section id="programacao" class="section section-espresso">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <h2 class="section-title" id="programacaoTitle"></h2>
+        <p class="section-subtitle" id="programacaoSubtitle"></p>
+      </div>
+      <div class="section-body" id="programacaoBody" data-aos="fade-up" data-aos-delay="100"></div>
+    </div>
+  </section>
+
+  <!-- PALESTRANTES -->
+  <section id="palestrantes" class="section section-orange">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <h2 class="section-title" id="palestrantesTitle"></h2>
+        <p class="section-subtitle" id="palestrantesSubtitle"></p>
+      </div>
+      <div class="section-body" id="palestrantesBody" data-aos="fade-up" data-aos-delay="100"></div>
+    </div>
+  </section>
+
+  <!-- LOCAL -->
+  <section id="local" class="section section-dark">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <h2 class="section-title" id="localTitle"></h2>
+        <p class="section-subtitle" id="localSubtitle"></p>
+      </div>
+      <div class="section-body" id="localBody" data-aos="fade-up" data-aos-delay="100"></div>
+    </div>
+  </section>
+
+  <!-- PATROCINADORES -->
+  <section id="patrocinadores" class="section section-sand">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <h2 class="section-title" id="patrocinadoresTitle"></h2>
+        <p class="section-subtitle" id="patrocinadoresSubtitle"></p>
+      </div>
+      <div class="section-body" id="patrocinadoresBody" data-aos="fade-up" data-aos-delay="100"></div>
+    </div>
+  </section>
+
+  <!-- INGRESSOS -->
+  <section id="ingressos" class="section section-crimson">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <h2 class="section-title" id="ingressosTitle"></h2>
+        <p class="section-subtitle" id="ingressosSubtitle"></p>
+      </div>
+      <div class="section-body" id="ingressosBody" data-aos="fade-up" data-aos-delay="100"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <img src="assets/logo.png" alt="PHPeste 2026" class="footer-logo-img" width="850" height="482">
+      <div class="footer-body" id="footerBody"></div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
