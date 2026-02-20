@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1200">
+  <style>
+    @font-face {
+      font-family: 'Eldes';
+      src: url('assets/fonts/eldes.otf') format('opentype');
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+      background: #231208;
+      font-family: 'Eldes', Georgia, serif;
+      position: relative;
+    }
+
+    /* Fundo com textura de linogravura */
+    .bg-texture {
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 3px,
+          rgba(196, 160, 122, 0.025) 3px,
+          rgba(196, 160, 122, 0.025) 4px
+        ),
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 5px,
+          rgba(196, 160, 122, 0.015) 5px,
+          rgba(196, 160, 122, 0.015) 6px
+        );
+    }
+
+    /* Faixa lateral esquerda — laranja terracota */
+    .stripe-left {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 10px;
+      height: 100%;
+      background: #D4743A;
+    }
+
+    /* Faixa lateral direita */
+    .stripe-right {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 10px;
+      height: 100%;
+      background: #D4743A;
+    }
+
+    /* Faixa superior */
+    .stripe-top {
+      position: absolute;
+      top: 0;
+      left: 10px;
+      right: 10px;
+      height: 8px;
+      background: #D4743A;
+    }
+
+    /* Faixa inferior */
+    .stripe-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 10px;
+      right: 10px;
+      height: 8px;
+      background: #D4743A;
+    }
+
+    /* Bordas decorativas internas — padrão de azulejo */
+    .inner-border {
+      position: absolute;
+      inset: 22px;
+      border: 2px solid rgba(196, 160, 122, 0.35);
+    }
+
+    /* Cantos decorativos */
+    .corner {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+    }
+    .corner-tl { top: 30px; left: 30px; border-top: 3px solid #D4743A; border-left: 3px solid #D4743A; }
+    .corner-tr { top: 30px; right: 30px; border-top: 3px solid #D4743A; border-right: 3px solid #D4743A; }
+    .corner-bl { bottom: 30px; left: 30px; border-bottom: 3px solid #D4743A; border-left: 3px solid #D4743A; }
+    .corner-br { bottom: 30px; right: 30px; border-bottom: 3px solid #D4743A; border-right: 3px solid #D4743A; }
+
+    /* Decoração fundo — serpente/dragão SVG abstrato */
+    .bg-serpent {
+      position: absolute;
+      right: -20px;
+      bottom: -30px;
+      width: 420px;
+      height: 420px;
+      opacity: 0.07;
+    }
+
+    /* Decoração esquerda */
+    .bg-deco-left {
+      position: absolute;
+      left: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 280px;
+      height: 280px;
+      opacity: 0.05;
+    }
+
+    /* Layout central */
+    .layout {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 50px 80px;
+    }
+
+    /* Logo — inverte para areia quente no fundo escuro */
+    .logo {
+      width: 420px;
+      height: auto;
+      filter: invert(1) sepia(1) saturate(0.6) hue-rotate(340deg) brightness(1.05);
+      margin-bottom: 18px;
+    }
+
+    /* Divisor */
+    .divider {
+      width: 200px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #D4743A 30%, #F5C828 50%, #D4743A 70%, transparent);
+      margin-bottom: 20px;
+    }
+
+    /* Tagline — fonte sistema para evitar substituições Eldes */
+    .tagline {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      font-size: 21px;
+      font-style: italic;
+      color: #C4A07A;
+      letter-spacing: 0.06em;
+      text-align: center;
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    /* Local */
+    .local {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .local-text {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      font-size: 17px;
+      font-weight: bold;
+      color: #F0E6D3;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .local-dot {
+      width: 6px;
+      height: 6px;
+      background: #D4743A;
+      border-radius: 50%;
+    }
+
+    /* Badge data */
+    .badge {
+      position: absolute;
+      top: 48px;
+      right: 60px;
+      background: #D4743A;
+      color: #0D0906;
+      font-family: 'Georgia', serif;
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      font-weight: bold;
+    }
+
+    /* Badge esquerdo — phpeste.net */
+    .badge-url {
+      position: absolute;
+      bottom: 48px;
+      left: 60px;
+      color: rgba(196, 160, 122, 0.55);
+      font-family: 'Georgia', serif;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: lowercase;
+    }
+
+    /* Estrelas decorativas */
+    .star {
+      position: absolute;
+      color: #D4743A;
+      font-size: 20px;
+      opacity: 0.7;
+    }
+    .star-1 { top: 52px; left: 60px; }
+    .star-2 { bottom: 44px; right: 60px; }
+    .star-3 { top: 52px; left: 110px; font-size: 12px; opacity: 0.4; }
+  </style>
+</head>
+<body>
+
+  <!-- Estrutura de fundo -->
+  <div class="bg-texture"></div>
+  <div class="stripe-left"></div>
+  <div class="stripe-right"></div>
+  <div class="stripe-top"></div>
+  <div class="stripe-bottom"></div>
+  <div class="inner-border"></div>
+
+  <!-- Cantos decorativos -->
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+
+  <!-- Serpente / dragão decorativo de fundo -->
+  <svg class="bg-serpent" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M180 20 C160 20, 140 40, 130 60 C120 80, 100 90, 80 100 C60 110, 40 130, 30 160 C20 190, 30 210, 50 200" stroke="#C4A07A" stroke-width="18" stroke-linecap="round" fill="none"/>
+    <path d="M180 20 C190 10, 195 5, 190 15" stroke="#C4A07A" stroke-width="10" stroke-linecap="round" fill="none"/>
+    <circle cx="185" cy="15" r="5" fill="#C4A07A"/>
+    <circle cx="178" cy="18" r="3" fill="#C4A07A"/>
+    <!-- Escamas estilizadas -->
+    <path d="M130 60 Q125 55, 135 55" stroke="#C4A07A" stroke-width="3" fill="none"/>
+    <path d="M105 85 Q100 80, 110 80" stroke="#C4A07A" stroke-width="3" fill="none"/>
+    <path d="M80 105 Q75 100, 85 100" stroke="#C4A07A" stroke-width="3" fill="none"/>
+    <path d="M55 130 Q50 125, 60 125" stroke="#C4A07A" stroke-width="3" fill="none"/>
+    <path d="M35 158 Q30 153, 40 153" stroke="#C4A07A" stroke-width="3" fill="none"/>
+  </svg>
+
+  <!-- Deco cactus/estrela esquerda -->
+  <svg class="bg-deco-left" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M100 20 L100 180 M100 60 L70 40 M100 100 L60 90 M100 140 L75 160" stroke="#C4A07A" stroke-width="12" stroke-linecap="round"/>
+    <path d="M100 60 L130 40 M100 100 L140 90" stroke="#C4A07A" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="100" cy="20" r="8" fill="#C4A07A"/>
+  </svg>
+
+  <!-- Badge superior direito -->
+  <div class="badge">2026</div>
+
+  <!-- Estrelas decorativas -->
+  <div class="star star-1">✦</div>
+  <div class="star star-2">✦</div>
+  <div class="star star-3">✦</div>
+
+  <!-- URL inferior esquerdo -->
+  <div class="badge-url">phpeste.com.br</div>
+
+  <!-- Conteúdo central -->
+  <div class="layout">
+    <img class="logo" src="assets/logo.png" alt="PHPeste 2026">
+    <div class="divider"></div>
+    <p class="tagline">O maior evento PHP do Nordeste</p>
+    <div class="local">
+      <span class="local-text">São Luís</span>
+      <div class="local-dot"></div>
+      <span class="local-text">Maranhão</span>
+      <div class="local-dot"></div>
+      <span class="local-text">2026</span>
+    </div>
+  </div>
+
+</body>
+</html>
