@@ -24,11 +24,11 @@ A edição de 2026 carrega o conceito da **confluência**: assim como o Maranhã
 <!-- section:numeros -->
 ### 500+
 Participantes esperados
-### 30+
+### 40+
 Palestras e workshops
 ### 3
 Dias de evento
-### 9
+### 12+
 Comunidades
 
 <!-- section:programacao -->
@@ -89,12 +89,12 @@ Quer levar sua marca para milhares de profissionais da área de tecnologia? Fale
 [ticket:No Compasso:199,90:Lote 1 · até 01/04/2026:active]
 [ticket:No Embalo:249,90:Lote 2 · até 01/07/2026:pending]
 [ticket:No Estouro:299,90:Lote 3 · até 01/10/2026:pending]
-[cta:Comprar ingresso]
+[cta:Comprar ingresso|https://eventiza.com.br/evento/phpeste-2026]
 
 <!-- section:footer -->
 PHPeste 2026 · São Luís, Maranhão
 15 a 17 de outubro de 2026 · Auditório CEUMA Renascença
 Realização: Comunidade PHP Maranhão
-[social:twitter:@phpeste]
+[social:twitter:@phpestene]
 [social:instagram:@phpeste]
-[social:youtube:PHPeste]
+[social:telegram:phpeste]
