@@ -302,7 +302,7 @@
     }).join('');
 
     const legend = `<div class="schedule-legend">
-      <span class="schedule-legend-title">Categorias</span>
+      <span class="schedule-legend-title">Trilhas</span>
       <div class="schedule-legend-items">
         ${Object.entries(categoryIcons).map(([name, icon]) =>
           `<span class="schedule-legend-item">${icon}${name}</span>`
