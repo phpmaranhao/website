@@ -1,6 +1,6 @@
 <!-- section:nav -->
 [link:sobre:Sobre]
-[link:programacao:Programação]
+[link:programacao:Agenda]
 [link:palestrantes:Palestrantes]
 [link:local:Local]
 [link:patrocinadores:Patrocinadores]
@@ -42,12 +42,12 @@ Comunidades
 [rooms:Auditório Cazumbá|Sala Catirina|Sala Pai Francisco]
 [slot:08:00|credenciamento]
 [slot:09:00|Tema a definir|Tema a definir|Tema a definir]
-[slot:10:00|Tema a definir|Tema a definir|Tema a definir]
+[slot:10:00|Tema a definir~Abisai Santos|Tema a definir|Tema a definir]
 [slot:11:00|Tema a definir|Tema a definir|Tema a definir]
 [lunch:12:00]
 [slot:14:00|Tema a definir|Tema a definir|Tema a definir]
-[slot:15:00|Tema a definir|Tema a definir|Tema a definir]
-[slot:16:00|Tema a definir|Tema a definir|Tema a definir]
+[slot:15:00|MCP Prático com PHP~Ricardo Coelho|Tema a definir|Tema a definir]
+[slot:16:00|Tema a definir~Evaldo Barbosa|Tema a definir|Tema a definir]
 [slot:17:00|Tema a definir|Tema a definir|Tema a definir]
 
 [schedule-day:Sáb · 17/10]
@@ -81,7 +81,7 @@ O PHPeste 2026 acontece no **Auditório do CEUMA Renascença**, em São Luís, M
 # Patrocinadores
 ## Divulgue sua empresa no maior evento de PHP do Nordeste
 Quer levar sua marca para milhares de profissionais da área de tecnologia? Fale com a gente.
-[cta:Seja patrocinador]
+[cta:Seja patrocinador|https://wa.me/5598991322900]
 
 <!-- section:ingressos -->
 # Ingressos

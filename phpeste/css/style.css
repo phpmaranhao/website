@@ -712,10 +712,18 @@ em { font-style: italic; }
   font-size: .85rem;
   color: rgba(240,230,211,.35);
 }
+.schedule-talk-title--confirmed {
+  color: rgba(240,230,211,.85);
+  font-style: normal;
+}
 .schedule-talk-speaker {
   font-family: var(--font-body);
   font-size: .75rem;
   color: rgba(196,160,122,.25);
+}
+.schedule-talk-speaker--confirmed {
+  color: var(--orange);
+  opacity: .75;
 }
 
 /* Full-width cells (credenciamento, almoço) */
@@ -729,12 +737,12 @@ em { font-style: italic; }
   color: var(--orange);
 }
 .schedule-cell-lunch {
-  background: rgba(245,200,40,.07);
-  border-color: rgba(245,200,40,.15);
+  background: rgba(212,116,58,.1);
+  border-color: rgba(212,116,58,.2);
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font-body);
   font-size: .85rem; letter-spacing: .04em; text-transform: uppercase;
-  color: var(--yellow);
+  color: var(--orange);
 }
 
 /* Tourism day */

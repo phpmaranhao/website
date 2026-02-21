@@ -247,11 +247,17 @@
           <div class="schedule-cell schedule-cell-span schedule-cell-credenciamento">Credenciamento</div>
         </div>`;
       }
-      const cells = slot.talks.map(t => `
+      const cells = slot.talks.map(t => {
+        const sep       = t.indexOf('~');
+        const title     = sep === -1 ? t : t.slice(0, sep).trim();
+        const speaker   = sep === -1 ? 'Palestrante a definir' : t.slice(sep + 1).trim();
+        const confirmed = sep !== -1;
+        return `
         <div class="schedule-cell schedule-cell-talk">
-          <span class="schedule-talk-title">${t}</span>
-          <span class="schedule-talk-speaker">Palestrante a definir</span>
-        </div>`).join('');
+          <span class="schedule-talk-title${confirmed ? ' schedule-talk-title--confirmed' : ''}">${title}</span>
+          <span class="schedule-talk-speaker${confirmed ? ' schedule-talk-speaker--confirmed' : ''}">${speaker}</span>
+        </div>`;
+      }).join('');
       return `<div class="schedule-row">${'<div class="schedule-time">' + slot.time + '</div>'}${cells}</div>`;
     }
 
