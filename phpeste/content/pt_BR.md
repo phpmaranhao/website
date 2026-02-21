@@ -97,4 +97,5 @@ PHPeste 2026 · São Luís, Maranhão
 Realização: Comunidade PHP Maranhão
 [social:twitter:@phpestene]
 [social:instagram:@phpeste]
+[social:facebook:PeAgaPeste]
 [social:telegram:phpeste]
