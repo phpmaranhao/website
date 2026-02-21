@@ -46,8 +46,8 @@ Comunidades
 [slot:11:00|Tema a definir|Tema a definir|Tema a definir]
 [lunch:12:00]
 [slot:14:00|Tema a definir|Tema a definir|Tema a definir]
-[slot:15:00|MCP Prático com PHP~Ricardo Coelho|Tema a definir|Tema a definir]
-[slot:16:00|Tema a definir~Evaldo Barbosa|Tema a definir|Tema a definir]
+[slot:15:00|MCP Prático com PHP~Ricardo Coelho~IA|Tema a definir|Tema a definir]
+[slot:16:00|Escolhendo um gateway de pagamentos em 2026~Evaldo Barbosa~Integração|Tema a definir|Tema a definir]
 [slot:17:00|Tema a definir|Tema a definir|Tema a definir]
 
 [schedule-day:Sáb · 17/10]

@@ -695,10 +695,51 @@ em { font-style: italic; }
   min-height: 70px;
 }
 .schedule-cell-talk {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: .35rem;
 }
+.schedule-category-badge {
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
+  color: var(--orange);
+  opacity: .7;
+  line-height: 0;
+}
+.schedule-category-badge svg { display: block; }
+
+/* Legenda de categorias */
+.schedule-legend {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(196,160,122,.12);
+  border-radius: 4px;
+}
+.schedule-legend-title {
+  display: block;
+  font-family: var(--font-body);
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: rgba(196,160,122,.45);
+  margin-bottom: .75rem;
+}
+.schedule-legend-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem .75rem;
+}
+.schedule-legend-item {
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  font-family: var(--font-body);
+  font-size: .75rem;
+  color: rgba(196,160,122,.6);
+}
+.schedule-legend-item svg { color: var(--orange); opacity: .7; flex-shrink: 0; }
 .schedule-talk-duration {
   font-family: var(--font-body);
   font-size: .7rem;

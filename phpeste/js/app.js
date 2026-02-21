@@ -197,6 +197,19 @@
   }
 
   // ── PROGRAMAÇÃO (grade de horários) ──────────────────────────
+  const categoryIcons = {
+    'IA':             `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="4" r="2"/><circle cx="3" cy="12" r="1.5"/><circle cx="13" cy="12" r="1.5"/><line x1="8" y1="6" x2="4" y2="10.5"/><line x1="8" y1="6" x2="12" y2="10.5"/><line x1="4.5" y1="12" x2="11.5" y2="12"/></svg>`,
+    'Blockchain':     `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="4" height="4" rx="1"/><rect x="6" y="6" width="4" height="4" rx="1"/><rect x="11" y="6" width="4" height="4" rx="1"/><line x1="5" y1="8" x2="6" y2="8"/><line x1="10" y1="8" x2="11" y2="8"/></svg>`,
+    'Arquitetura':    `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="14" x2="15" y2="14"/><line x1="3" y1="6" x2="3" y2="14"/><line x1="8" y1="4" x2="8" y2="14"/><line x1="13" y1="6" x2="13" y2="14"/><polyline points="1,7 8,2 15,7"/></svg>`,
+    'Integração':     `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="8" r="4"/><circle cx="10.5" cy="8" r="4"/></svg>`,
+    'Testes':         `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><polyline points="5,8 7,10 11,6"/></svg>`,
+    'Escalabilidade': `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="10" width="3.5" height="4"/><rect x="6.25" y="6" width="3.5" height="8"/><rect x="11.5" y="2" width="3.5" height="12"/></svg>`,
+    'Segurança':      `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2L2 5v3.5C2 11.5 4.7 14.2 8 15.5c3.3-1.3 6-4 6-7V5z"/></svg>`,
+    'Observabilidade':`<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5z"/><circle cx="8" cy="8" r="2"/></svg>`,
+    'Carreira':       `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1,14 1,10 5,10 5,6 10,6 10,2 15,2"/></svg>`,
+    'SaaS':           `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12.5 11.5H4a3.5 3.5 0 01-.5-7 4.5 4.5 0 018.8-.5 3 3 0 01.2 7.5z"/></svg>`,
+  };
+
   (function renderProgramacao() {
     if (!sections.programacao) return;
     const sec      = sections.programacao;
@@ -248,12 +261,17 @@
         </div>`;
       }
       const cells = slot.talks.map(t => {
-        const sep       = t.indexOf('~');
-        const title     = sep === -1 ? t : t.slice(0, sep).trim();
-        const speaker   = sep === -1 ? 'Palestrante a definir' : t.slice(sep + 1).trim();
-        const confirmed = sep !== -1;
+        const parts     = t.split('~');
+        const title     = parts[0].trim();
+        const speaker   = parts[1]?.trim() || 'Palestrante a definir';
+        const category  = parts[2]?.trim() || '';
+        const confirmed = parts.length > 1;
+        const icon = category && categoryIcons[category]
+          ? `<span class="schedule-category-badge" title="${category}">${categoryIcons[category]}</span>`
+          : '';
         return `
         <div class="schedule-cell schedule-cell-talk">
+          ${icon}
           <span class="schedule-talk-title${confirmed ? ' schedule-talk-title--confirmed' : ''}">${title}</span>
           <span class="schedule-talk-speaker${confirmed ? ' schedule-talk-speaker--confirmed' : ''}">${speaker}</span>
         </div>`;
@@ -283,7 +301,16 @@
       return `<div class="schedule-panel${i === 0 ? ' active' : ''}" data-day="${i}">${inner}</div>`;
     }).join('');
 
-    bodyEl.innerHTML = `<div class="schedule-tabs">${tabs}</div><div class="schedule-panels">${panels}</div>`;
+    const legend = `<div class="schedule-legend">
+      <span class="schedule-legend-title">Categorias</span>
+      <div class="schedule-legend-items">
+        ${Object.entries(categoryIcons).map(([name, icon]) =>
+          `<span class="schedule-legend-item">${icon}${name}</span>`
+        ).join('')}
+      </div>
+    </div>`;
+
+    bodyEl.innerHTML = `<div class="schedule-tabs">${tabs}</div><div class="schedule-panels">${panels}</div>${legend}`;
 
     bodyEl.querySelectorAll('.schedule-tab').forEach(tab => {
       tab.addEventListener('click', () => {
