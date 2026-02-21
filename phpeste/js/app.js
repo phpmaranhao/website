@@ -515,6 +515,7 @@
       }).join('') + '</div>';
     }
     html += `<p class="footer-copy">© ${new Date().getFullYear()} PHPeste. Todos os direitos reservados.</p>`;
+    html += `<p class="footer-credit">Desenvolvido com zelo por <a href="https://nexy.com.br" target="_blank" rel="noopener">Nexy Consultoria</a></p>`;
     setHtml('footerBody', html);
   }
 

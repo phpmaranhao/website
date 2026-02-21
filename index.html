@@ -1,47 +1,316 @@
-<!DOCTYPE HTML>
-<!--
-	Eventually by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>PHP Maranhão</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Comunidade PHP Maranhão — entre o sertão e o mangue, do babaçu ao código. Encontros mensais, eventos e tecnologia desde 2011.">
+  <meta name="theme-color" content="#0A1222">
+  <title>PHP Maranhão — Comunidade PHP do Nordeste</title>
 
-		<!-- Header -->
-			<header id="header">
-				<h1>PHP Maranhão</h1>
-				<p>Nosso novo site será publicado em breve.<br />Cadastre o seu melhor e-mail abaixo que a gente te avisa quando estiver pronto.</p>
-			</header>
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="PHP Maranhão — Comunidade PHP do Nordeste">
+  <meta property="og:description" content="Entre o sertão e o mangue, do babaçu ao código. A maior comunidade de PHP do Nordeste, ativa desde 2011.">
+  <meta property="og:url" content="https://phpmaranhao.com.br">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="PHP Maranhão">
 
-		<!-- Signup Form -->
-			<form id="signup-form" method="post" action="https://formspree.io/f/mgvwgyyz">
-				<input type="email" name="email" id="email" placeholder="Endereço de e-mail" />
-				<input type="submit" value="Me avisa" />
-			</form>
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PHP Maranhão — Comunidade PHP do Nordeste">
+  <meta name="twitter:description" content="Entre o sertão e o mangue, do babaçu ao código. Ativa desde 2011.">
+  <meta name="twitter:site" content="@phpmaranhao">
 
-		<!-- Footer -->
-			<footer id="footer">
-				<ul class="icons">
-					<li><a href="https://x.com/phpmaranhao" class="icon brands fa-twitter"><span class="label">X</span></a></li>
-					<li><a href="https://instagram.com/phpmaranhao" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-					<li><a href="https://github.com/phpmaranhao" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-					<li><a href="https://facebook.com/phpmaranhao" class="icon brands fa-facebook"><span class="label">Facebook</span></a></li>
-					<li><a href="mailto:contato@phpmaranhao.com.br" class="icon fa-envelope"><span class="label">Facebook</span></a></li>
-				</ul>
-				<ul class="copyright">
-					<li>2024 &copy; PHPMaranhão</li><li> template by <a href="http://html5up.net">HTML5 UP</a></li>
-					<li>Photos by Photo by <a href="https://unsplash.com/@benofthenorth?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Ben Griffiths</a>, <a href="https://unsplash.com/@andyjh07?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Andy Holmes</a> and <a href="https://unsplash.com/@joeel56?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Nicole Wolf</a> on <a href="https://unsplash.com/">Unsplash</a>
-				</ul>
-			</footer>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
-		<!-- Scripts -->
-			<script src="assets/js/main.js"></script>
+  <!-- marked.js -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-	</body>
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar" class="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo" aria-label="PHP Maranhão">
+        <img src="assets/logo-nav.png" alt="PHP Maranhão" class="nav-logo-img" width="90" height="54">
+        <span class="nav-logo-text">PHP<span class="logo-accent">MA</span></span>
+      </a>
+      <ul class="nav-links" id="navLinks"></ul>
+      <div class="nav-actions">
+        <a href="https://t.me/phpma" target="_blank" rel="noopener" class="btn btn-guara btn-nav" id="navCta">Telegram</a>
+        <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-nav-links" id="mobileNavLinks"></ul>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero" class="hero">
+    <!-- Illustrated Landscape: Lençóis dunes + babaçu palms + Guará ibis -->
+    <svg id="heroLandscape" class="hero-landscape" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMax slice">
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0A1222"/>
+          <stop offset="60%" stop-color="#0e1f2f"/>
+          <stop offset="100%" stop-color="#1B3A2E"/>
+        </linearGradient>
+        <linearGradient id="duneGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#e8dfc8"/>
+          <stop offset="100%" stop-color="#c9b89a"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Sky background -->
+      <rect width="1440" height="320" fill="url(#skyGrad)"/>
+
+      <!-- Stars -->
+      <circle class="sky-star" cx="80" cy="30" r="1.2" fill="white" opacity=".6"/>
+      <circle class="sky-star" cx="200" cy="18" r="1" fill="white" opacity=".5"/>
+      <circle class="sky-star" cx="350" cy="45" r="1.5" fill="white" opacity=".7"/>
+      <circle class="sky-star" cx="520" cy="22" r="1" fill="white" opacity=".4"/>
+      <circle class="sky-star" cx="680" cy="10" r="1.3" fill="white" opacity=".6"/>
+      <circle class="sky-star" cx="850" cy="38" r="1" fill="white" opacity=".5"/>
+      <circle class="sky-star" cx="1020" cy="15" r="1.5" fill="white" opacity=".7"/>
+      <circle class="sky-star" cx="1180" cy="28" r="1" fill="white" opacity=".4"/>
+      <circle class="sky-star" cx="1320" cy="42" r="1.2" fill="white" opacity=".6"/>
+      <circle class="sky-star" cx="140" cy="60" r="1" fill="white" opacity=".3"/>
+      <circle class="sky-star" cx="440" cy="55" r="1" fill="white" opacity=".35"/>
+      <circle class="sky-star" cx="760" cy="50" r="1.2" fill="white" opacity=".4"/>
+      <circle class="sky-star" cx="1100" cy="60" r="1" fill="white" opacity=".3"/>
+
+      <!-- Back dune (far) -->
+      <path d="M0 240 Q120 195 280 215 Q440 235 600 205 Q760 175 900 200 Q1040 225 1200 195 Q1340 165 1440 185 L1440 320 L0 320 Z" fill="#8a7a5e" opacity=".4"/>
+
+      <!-- Mid dune -->
+      <path d="M0 265 Q100 240 240 255 Q380 270 520 245 Q660 220 820 248 Q980 276 1120 250 Q1280 224 1440 242 L1440 320 L0 320 Z" fill="url(#duneGrad)" opacity=".65"/>
+
+      <!-- Foreground dune -->
+      <path d="M0 285 Q180 268 360 278 Q540 288 720 272 Q900 256 1080 270 Q1260 284 1440 268 L1440 320 L0 320 Z" fill="url(#duneGrad)"/>
+
+      <!-- Babaçu palm — left -->
+      <g transform="translate(60, 60)" opacity=".85">
+        <!-- trunk -->
+        <path d="M12 220 Q10 160 14 110 Q15 80 12 50" stroke="#4a3728" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <!-- fronds -->
+        <path d="M12 50 Q-40 20 -80 -10" stroke="#2D6A4F" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <path d="M12 50 Q-20 10 -30 -30" stroke="#2D6A4F" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M12 50 Q20 0 10 -40" stroke="#2D6A4F" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M12 50 Q50 10 80 -5" stroke="#2D6A4F" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <path d="M12 50 Q60 40 100 30" stroke="#2D6A4F" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M12 50 Q30 55 60 70" stroke="#2D6A4F" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- leaflets on main frond left -->
+        <path d="M-20 27 Q-35 10 -50 15" stroke="#2D6A4F" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M-45 12 Q-60 0 -70 5" stroke="#2D6A4F" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- leaflets on main frond right -->
+        <path d="M40 22 Q55 10 65 15" stroke="#2D6A4F" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M65 12 Q80 2 85 8" stroke="#2D6A4F" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      </g>
+
+      <!-- Babaçu palm — right -->
+      <g transform="translate(1340, 55)" opacity=".85">
+        <path d="M12 230 Q14 170 10 120 Q9 90 13 55" stroke="#4a3728" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <path d="M13 55 Q-45 25 -85 -5" stroke="#2D6A4F" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <path d="M13 55 Q-15 15 -25 -25" stroke="#2D6A4F" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M13 55 Q22 5 15 -35" stroke="#2D6A4F" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M13 55 Q55 15 90 0" stroke="#2D6A4F" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <path d="M13 55 Q65 45 105 35" stroke="#2D6A4F" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M-35 15 Q-55 2 -65 8" stroke="#2D6A4F" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M60 18 Q80 5 90 10" stroke="#2D6A4F" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      </g>
+
+      <!-- Babaçu palm — small mid-right -->
+      <g transform="translate(1100, 100)" opacity=".6">
+        <path d="M8 180 Q9 130 7 90 Q8 65 9 40" stroke="#4a3728" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <path d="M9 40 Q-30 18 -60 0" stroke="#2D6A4F" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M9 40 Q15 5 8 -25" stroke="#2D6A4F" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M9 40 Q45 15 70 5" stroke="#2D6A4F" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      </g>
+
+      <!-- Guará ibis flying — bird 1 -->
+      <g transform="translate(420, 72)" opacity=".9">
+        <!-- body -->
+        <ellipse cx="0" cy="0" rx="10" ry="4" fill="#E8291C"/>
+        <!-- neck + head -->
+        <path d="M8 -2 Q16 -8 20 -5" stroke="#E8291C" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <circle cx="21" cy="-4" r="3.5" fill="#E8291C"/>
+        <!-- bill -->
+        <path d="M23 -4 Q30 -2 32 -3" stroke="#c41f10" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- wings spread -->
+        <path d="M0 0 Q-15 -18 -38 -10" stroke="#E8291C" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M0 0 Q12 -16 36 -8" stroke="#E8291C" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- tail -->
+        <path d="M-9 2 Q-18 4 -22 8" stroke="#E8291C" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- legs trailing -->
+        <path d="M0 3 Q8 12 12 18" stroke="#c41f10" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M4 3 Q10 12 14 20" stroke="#c41f10" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      </g>
+
+      <!-- Guará ibis flying — bird 2 (smaller, farther) -->
+      <g transform="translate(600, 52) scale(0.7)" opacity=".7">
+        <ellipse cx="0" cy="0" rx="10" ry="4" fill="#E8291C"/>
+        <path d="M8 -2 Q16 -8 20 -5" stroke="#E8291C" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <circle cx="21" cy="-4" r="3.5" fill="#E8291C"/>
+        <path d="M23 -4 Q30 -2 32 -3" stroke="#c41f10" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M0 0 Q-15 -18 -38 -10" stroke="#E8291C" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M0 0 Q12 -16 36 -8" stroke="#E8291C" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M-9 2 Q-18 4 -22 8" stroke="#E8291C" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </g>
+
+      <!-- Daytime crabs on dune — shown via JS when hour is 9-17 -->
+      <g id="skyCrebs" style="display:none">
+        <!-- Crab 1 — foreground left -->
+        <g transform="translate(240, 274)">
+          <ellipse cx="0" cy="0" rx="7" ry="5" fill="#a06428"/>
+          <line x1="-7" y1="-2" x2="-15" y2="-7" stroke="#a06428" stroke-width="2" stroke-linecap="round"/>
+          <line x1="-7" y1="2"  x2="-15" y2="7"  stroke="#a06428" stroke-width="2" stroke-linecap="round"/>
+          <line x1="7"  y1="-2" x2="15"  y2="-7" stroke="#a06428" stroke-width="2" stroke-linecap="round"/>
+          <line x1="7"  y1="2"  x2="15"  y2="7"  stroke="#a06428" stroke-width="2" stroke-linecap="round"/>
+          <!-- claws -->
+          <path d="M-15 -7 Q-20 -10 -18 -4" stroke="#a06428" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M15 -7 Q20 -10 18 -4"   stroke="#a06428" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <!-- eyes -->
+          <circle cx="-3" cy="-5" r="2" fill="#5a2800"/>
+          <circle cx="3"  cy="-5" r="2" fill="#5a2800"/>
+        </g>
+        <!-- Crab 2 — mid dune -->
+        <g transform="translate(620, 285) scale(0.7)">
+          <ellipse cx="0" cy="0" rx="7" ry="5" fill="#c47830"/>
+          <line x1="-7" y1="-2" x2="-15" y2="-7" stroke="#c47830" stroke-width="2" stroke-linecap="round"/>
+          <line x1="-7" y1="2"  x2="-15" y2="7"  stroke="#c47830" stroke-width="2" stroke-linecap="round"/>
+          <line x1="7"  y1="-2" x2="15"  y2="-7" stroke="#c47830" stroke-width="2" stroke-linecap="round"/>
+          <line x1="7"  y1="2"  x2="15"  y2="7"  stroke="#c47830" stroke-width="2" stroke-linecap="round"/>
+          <path d="M-15 -7 Q-20 -10 -18 -4" stroke="#c47830" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M15 -7 Q20 -10 18 -4"   stroke="#c47830" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <circle cx="-3" cy="-5" r="2" fill="#5a2800"/>
+          <circle cx="3"  cy="-5" r="2" fill="#5a2800"/>
+        </g>
+        <!-- Crab 3 — right side -->
+        <g transform="translate(980, 275) scale(0.85)">
+          <ellipse cx="0" cy="0" rx="7" ry="5" fill="#8a5018"/>
+          <line x1="-7" y1="-2" x2="-15" y2="-7" stroke="#8a5018" stroke-width="2" stroke-linecap="round"/>
+          <line x1="-7" y1="2"  x2="-15" y2="7"  stroke="#8a5018" stroke-width="2" stroke-linecap="round"/>
+          <line x1="7"  y1="-2" x2="15"  y2="-7" stroke="#8a5018" stroke-width="2" stroke-linecap="round"/>
+          <line x1="7"  y1="2"  x2="15"  y2="7"  stroke="#8a5018" stroke-width="2" stroke-linecap="round"/>
+          <path d="M-15 -7 Q-20 -10 -18 -4" stroke="#8a5018" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M15 -7 Q20 -10 18 -4"   stroke="#8a5018" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <circle cx="-3" cy="-5" r="2" fill="#5a2800"/>
+          <circle cx="3"  cy="-5" r="2" fill="#5a2800"/>
+        </g>
+      </g>
+
+      <!-- Guará ibis standing on dune foreground (right) -->
+      <g transform="translate(1200, 248)" opacity=".88">
+        <!-- legs -->
+        <line x1="0" y1="0" x2="-3" y2="22" stroke="#c41f10" stroke-width="2"/>
+        <line x1="5" y1="0" x2="7" y2="22" stroke="#c41f10" stroke-width="2"/>
+        <!-- feet -->
+        <path d="M-3 22 Q-8 24 -12 22" stroke="#c41f10" stroke-width="1.5" fill="none"/>
+        <path d="M7 22 Q12 24 16 22" stroke="#c41f10" stroke-width="1.5" fill="none"/>
+        <!-- body -->
+        <ellipse cx="2" cy="-8" rx="12" ry="7" fill="#E8291C"/>
+        <!-- neck -->
+        <path d="M10 -12 Q16 -22 14 -30" stroke="#E8291C" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <!-- head -->
+        <circle cx="14" cy="-32" r="6" fill="#E8291C"/>
+        <!-- bill (curved down) -->
+        <path d="M18 -30 Q24 -26 26 -22" stroke="#8a1a10" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- wing fold -->
+        <path d="M-8 -8 Q-14 -5 -12 0" stroke="#c41f10" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      </g>
+    </svg>
+
+    <!-- Hero text content -->
+    <div class="hero-content-wrap">
+      <div class="container">
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="900">
+          <p class="hero-eyebrow">Comunidade · São Luís, MA · Desde 2011</p>
+          <h1 class="hero-title" id="heroTitle">Comunidade PHP do Maranhão</h1>
+          <p class="hero-subtitle" id="heroSubtitle"></p>
+          <div class="hero-ctas" id="heroCtas"></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre" class="section section-dune section-wave-start">
+    <!-- Wave at top: night drips DOWN into dune -->
+    <div class="wave-divider" aria-hidden="true">
+      <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0 0 L1440 0 L1440 0 C1200,0 1050,75 720,75 C390,75 240,0 0,0 Z" fill="#0A1222"/>
+      </svg>
+    </div>
+
+    <div class="container">
+      <div class="sobre-layout">
+        <div class="sobre-text" id="sobreText" data-aos="fade-up"></div>
+        <div class="stats-grid" id="statsGrid" data-aos="fade-up" data-aos-delay="100"></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- PHPUB -->
+  <section id="phpub" class="section section-mangrove section-wave-start">
+    <!-- Wave at top: dune drips DOWN into mangrove -->
+    <div class="wave-divider" aria-hidden="true">
+      <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0 0 L1440 0 L1440 0 C1150,0 1000,78 720,78 C290,78 140,0 0,0 Z" fill="#F5F1E4"/>
+      </svg>
+    </div>
+
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <h2 class="section-title" id="phpubTitle"></h2>
+        <p class="section-subtitle" id="phpubSubtitle"></p>
+      </div>
+      <div class="section-body phpub-content" id="phpubBody" data-aos="fade-up" data-aos-delay="100"></div>
+    </div>
+
+  </section>
+
+  <!-- EVENTOS -->
+  <section id="eventos" class="section section-night section-wave-start">
+    <!-- Wave at top: mangrove drips DOWN into night -->
+    <div class="wave-divider" aria-hidden="true">
+      <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0 0 L1440 0 L1440 0 C1100,0 950,76 720,76 C490,76 340,0 0,0 Z" fill="#1B3A2E"/>
+      </svg>
+    </div>
+
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <h2 class="section-title" id="eventosTitle"></h2>
+        <p class="section-subtitle" id="eventosSubtitle"></p>
+      </div>
+      <div class="section-body" id="eventosBody" data-aos="fade-up" data-aos-delay="100"></div>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-body" id="footerBody"></div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
 </html>

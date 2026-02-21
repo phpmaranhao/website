@@ -632,6 +632,18 @@ em { font-style: italic; }
   font-size: .85rem;
   color: rgba(196,160,122,.5);
 }
+.footer-credit {
+  margin-top: .5rem;
+  font-size: .78rem;
+  color: rgba(196,160,122,.25);
+}
+.footer-credit a {
+  color: rgba(196,160,122,.5);
+  text-decoration: none;
+}
+.footer-credit a:hover {
+  color: var(--sand);
+}
 
 /* ── Schedule ────────────────────────────────────────────── */
 .schedule-tabs {
