@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <rect width="400" height="400" fill="#231208"/>
+  <circle cx="200" cy="155" r="72" fill="#2e1a0e"/>
+  <path d="M20 400 Q20 265 200 265 Q380 265 380 400Z" fill="#2e1a0e"/>
+  <text x="200" y="168" text-anchor="middle" dominant-baseline="middle" font-family="Georgia, serif" font-size="64" fill="#C4A07A" letter-spacing="4">EB</text>
+</svg>

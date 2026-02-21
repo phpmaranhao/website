@@ -322,7 +322,161 @@
       });
     });
   })();
-  renderSection('palestrantes',  'palestrantesTitle',  'palestrantesSubtitle',  'palestrantesBody');
+  // ── PALESTRANTES ─────────────────────────────────────────────
+  await (async function renderPalestrantes() {
+    if (!sections.palestrantes) return;
+    const sec      = sections.palestrantes;
+    const secLines = lines(sec);
+    setHtml('palestrantesTitle',    secLines.find(l => l.startsWith('# '))?.replace(/^# /, '')  || '');
+    setHtml('palestrantesSubtitle', secLines.find(l => l.startsWith('## '))?.replace(/^## /, '') || '');
+
+    // Coleta palestrantes confirmados do schedule
+    const speakers = new Map();
+    if (sections.programacao) {
+      let currentDay = '';
+      lines(sections.programacao).forEach(line => {
+        if (line.startsWith('[schedule-day:')) {
+          const m = line.match(/\[schedule-day:([^\]]+)\]/);
+          if (m) currentDay = m[1];
+        } else if (line.startsWith('[slot:')) {
+          const m = line.match(/\[slot:([^\]]+)\]/);
+          if (m) {
+            const slotParts = m[1].split('|');
+            const time = slotParts[0];
+            slotParts.slice(1).forEach(talk => {
+              const parts = talk.split('~');
+              if (parts.length < 2) return;
+              const title    = parts[0].trim().replace(/<br>/gi, ' ');
+              const name     = parts[1].trim();
+              const category = parts[2]?.trim() || '';
+              if (!speakers.has(name)) {
+                const slug = name.toLowerCase()
+                  .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                  .replace(/\s+/g, '-');
+                speakers.set(name, { name, slug, talks: [] });
+              }
+              speakers.get(name).talks.push({ title, category, day: currentDay, time });
+            });
+          }
+        }
+      });
+    }
+
+    const sorted = [...speakers.values()].sort((a, b) =>
+      a.name.localeCompare(b.name, 'pt-BR')
+    );
+
+    const bodyEl = document.getElementById('palestrantesBody');
+    if (!bodyEl) return;
+
+    if (!sorted.length) {
+      const ctaLine = secLines.find(l => l.startsWith('[cta:'));
+      if (ctaLine) {
+        const [, labelAndUrl] = ctaLine.match(/\[cta:([^\]]+)\]/) || [];
+        if (labelAndUrl) {
+          const sep   = labelAndUrl.indexOf('|');
+          const label = sep === -1 ? labelAndUrl : labelAndUrl.slice(0, sep);
+          const href  = sep === -1 ? '#' : labelAndUrl.slice(sep + 1);
+          bodyEl.innerHTML = `<p>${secLines.find(l => !l.startsWith('#') && !l.startsWith('[')) || ''}</p>
+            <div class="section-cta"><a href="${href}" target="_blank" rel="noopener" class="btn btn-primary btn-lg">${label}</a></div>`;
+        }
+      }
+      return;
+    }
+
+    // Busca minicurrículos em paralelo (assets/palestrantes/{slug}.md)
+    const bios = await Promise.all(
+      sorted.map(sp =>
+        fetch(`assets/palestrantes/${sp.slug}.md`)
+          .then(r => r.ok ? r.text() : '')
+          .catch(() => '')
+      )
+    );
+
+    // Cria modal no DOM
+    const modal = document.createElement('div');
+    modal.id = 'speakerModal';
+    modal.className = 'speaker-modal-backdrop';
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('role', 'dialog');
+    modal.innerHTML = `
+      <div class="speaker-modal">
+        <button class="speaker-modal-close" aria-label="Fechar">&#x2715;</button>
+        <div class="speaker-modal-photo-wrap">
+          <img id="modalPhoto" class="speaker-modal-photo" src="" alt="">
+        </div>
+        <div class="speaker-modal-body">
+          <h2 class="speaker-modal-name" id="modalName"></h2>
+          <div class="speaker-modal-bio" id="modalBio"></div>
+          <div class="speaker-modal-divider"></div>
+          <p class="speaker-modal-talk-title" id="modalTalkTitle"></p>
+          <div class="speaker-modal-meta" id="modalMeta"></div>
+        </div>
+      </div>`;
+    document.body.appendChild(modal);
+
+    const openModal = (sp, bio) => {
+      const talk = sp.talks[0];
+      const icon = talk.category && categoryIcons[talk.category] ? categoryIcons[talk.category] : '';
+      const modalPhoto = document.getElementById('modalPhoto');
+      modalPhoto.onerror = () => { modalPhoto.src = `assets/palestrantes/${sp.slug}.svg`; modalPhoto.onerror = null; };
+      modalPhoto.src = `assets/palestrantes/${sp.slug}.jpg`;
+      document.getElementById('modalPhoto').alt = sp.name;
+      document.getElementById('modalName').textContent = sp.name;
+      document.getElementById('modalBio').innerHTML = bio ? marked.parse(bio) : '';
+      document.getElementById('modalTalkTitle').textContent = talk.title;
+      const iconCalendar = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="14" height="12" rx="1"/><line x1="1" y1="7" x2="15" y2="7"/><line x1="5" y1="1" x2="5" y2="5"/><line x1="11" y1="1" x2="11" y2="5"/></svg>`;
+      const iconClock    = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="4" x2="8" y2="8"/><line x1="8" y1="8" x2="11" y2="10"/></svg>`;
+      document.getElementById('modalMeta').innerHTML = [
+        `<span class="modal-meta-item">${iconCalendar}${talk.day}</span>`,
+        `<span class="modal-meta-item">${iconClock}${talk.time}</span>`,
+        talk.category ? `<span class="modal-meta-item modal-meta-trilha">${icon}${talk.category}</span>` : '',
+      ].filter(Boolean).join('');
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    };
+
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    modal.querySelector('.speaker-modal-close').addEventListener('click', closeModal);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    const cards = sorted.map((sp, i) => `
+      <div class="speaker-card" data-aos="fade-up" data-speaker="${i}" role="button" tabindex="0" aria-label="Ver perfil de ${sp.name}">
+        <div class="speaker-photo-wrap">
+          <img src="assets/palestrantes/${sp.slug}.jpg" alt="${sp.name}" class="speaker-photo" width="400" height="400" onerror="this.src='assets/palestrantes/${sp.slug}.svg';this.onerror=null;">
+        </div>
+        <div class="speaker-info">
+          <h3 class="speaker-name">${sp.name}</h3>
+          <p class="speaker-talk">${sp.talks[0].title}</p>
+          ${sp.talks[0].category ? `<span class="speaker-category">${categoryIcons[sp.talks[0].category] || ''}${sp.talks[0].category}</span>` : ''}
+        </div>
+      </div>`).join('');
+
+    const ctaLine = secLines.find(l => l.startsWith('[cta:'));
+    let ctaHtml = '';
+    if (ctaLine) {
+      const [, labelAndUrl] = ctaLine.match(/\[cta:([^\]]+)\]/) || [];
+      if (labelAndUrl) {
+        const sep   = labelAndUrl.indexOf('|');
+        const label = sep === -1 ? labelAndUrl : labelAndUrl.slice(0, sep);
+        const href  = sep === -1 ? '#' : labelAndUrl.slice(sep + 1);
+        ctaHtml = `<div class="section-cta"><a href="${href}" target="_blank" rel="noopener" class="btn btn-primary btn-lg">${label}</a></div>`;
+      }
+    }
+
+    bodyEl.innerHTML = `<div class="speakers-grid">${cards}</div>${ctaHtml}`;
+
+    bodyEl.querySelectorAll('.speaker-card').forEach(card => {
+      const handler = () => openModal(sorted[+card.dataset.speaker], bios[+card.dataset.speaker]);
+      card.addEventListener('click', handler);
+      card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') handler(); });
+    });
+  })();
   renderSection('local',         'localTitle',         'localSubtitle',         'localBody');
   renderSection('patrocinadores','patrocinadoresTitle','patrocinadoresSubtitle','patrocinadoresBody');
   renderSection('ingressos',     'ingressosTitle',     'ingressosSubtitle',     'ingressosBody');

@@ -811,8 +811,182 @@ em { font-style: italic; }
   .schedule-row   { min-width: 560px; }
 }
 
+/* ── Palestrantes ────────────────────────────────────────── */
+.speakers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.speaker-card {
+  background: rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: transform .2s, box-shadow .2s;
+}
+.speaker-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.15);
+  cursor: pointer;
+}
+.speaker-photo-wrap {
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+.speaker-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+.speaker-info {
+  padding: .9rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+}
+.speaker-name {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--black);
+  margin: 0;
+}
+.speaker-bio {
+  font-family: var(--font-body);
+  font-size: .78rem;
+  color: rgba(0,0,0,.6);
+  line-height: 1.5;
+  margin: 0;
+}
+.speaker-bio p { margin: 0; }
+.speaker-talk {
+  font-family: var(--font-body);
+  font-size: .75rem;
+  font-style: italic;
+  color: rgba(0,0,0,.55);
+  margin: 0;
+  line-height: 1.4;
+}
+.speaker-category {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  margin-top: .2rem;
+  font-family: var(--font-body);
+  font-size: .7rem;
+  color: rgba(0,0,0,.5);
+}
+.speaker-category svg { opacity: .7; }
+
+/* ── Modal palestrante ───────────────────────────────────── */
+.speaker-modal-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(13,9,6,.88);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.speaker-modal-backdrop.open { display: flex; }
+
+.speaker-modal {
+  background: var(--espresso);
+  border: 1px solid rgba(196,160,122,.15);
+  border-radius: 6px;
+  display: flex;
+  gap: 0;
+  max-width: 780px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: hidden;
+  position: relative;
+}
+.speaker-modal-close {
+  position: absolute;
+  top: .75rem;
+  right: .75rem;
+  background: none;
+  border: none;
+  color: rgba(196,160,122,.5);
+  font-size: 1.25rem;
+  cursor: pointer;
+  line-height: 1;
+  z-index: 1;
+  transition: color .15s;
+}
+.speaker-modal-close:hover { color: var(--orange); }
+
+.speaker-modal-photo-wrap {
+  width: 260px;
+  flex-shrink: 0;
+}
+.speaker-modal-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.speaker-modal-body {
+  padding: 2rem 2rem 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  overflow-y: auto;
+}
+.speaker-modal-name {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--sand-lt);
+  margin: 0;
+}
+.speaker-modal-bio {
+  font-family: var(--font-body);
+  font-size: .875rem;
+  color: rgba(196,160,122,.8);
+  line-height: 1.65;
+}
+.speaker-modal-bio p { margin: 0; }
+.speaker-modal-divider {
+  height: 1px;
+  background: rgba(196,160,122,.12);
+  margin: .25rem 0;
+}
+.speaker-modal-talk-title {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: .9rem;
+  color: var(--sand-lt);
+  margin: 0;
+  line-height: 1.4;
+}
+.speaker-modal-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem .75rem;
+}
+.modal-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  font-family: var(--font-body);
+  font-size: .78rem;
+  color: rgba(196,160,122,.6);
+}
+.modal-meta-trilha { color: var(--orange); }
+.modal-meta-trilha svg { opacity: .8; }
+
 /* ── Responsive ──────────────────────────────────────────── */
 @media (max-width: 768px) {
+  .speaker-modal { flex-direction: column; max-height: 95vh; }
+  .speaker-modal-photo-wrap { width: 100%; height: 220px; }
+  .speaker-modal-body { padding: 1.25rem; }
+
   .nav-links { display: none; }
   .hamburger { display: flex; }
   .btn-nav   { display: none; }
