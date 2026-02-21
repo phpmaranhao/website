@@ -43,7 +43,7 @@ Comunidades
 [slot:08:00|credenciamento]
 [slot:09:00|Tema a definir|Tema a definir|Tema a definir]
 [slot:10:00|Tema a definir~Abisai Santos|Tema a definir|Tema a definir]
-[slot:11:00|Tema a definir|Tema a definir|Tema a definir]
+[slot:11:00|Tema a definir~Atmos Maciel|Tema a definir|Tema a definir]
 [lunch:12:00]
 [slot:14:00|Tema a definir|Tema a definir|Tema a definir]
 [slot:15:00|MCP Prático com PHP~Ricardo Coelho~IA|Tema a definir|Tema a definir]
