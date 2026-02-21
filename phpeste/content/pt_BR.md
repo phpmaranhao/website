@@ -59,8 +59,8 @@ Comunidades
 [lunch:12:00]
 [slot:14:00|Tema a definir|Tema a definir|Tema a definir]
 [slot:15:00|Tema a definir|Tema a definir|Tema a definir]
-[slot:16:00|Tema a definir|Tema a definir|Tema a definir]
-[slot:17:00|Tema a definir|Tema a definir|Tema a definir]
+[slot:16:00|Tema a definir~Er Galvão|Tema a definir|Tema a definir]
+[slot:17:00|Você não precisa aprender PHP~Bruno Fernandes~Carreira|Tema a definir|Tema a definir]
 
 <!-- section:palestrantes -->
 # Palestrantes
