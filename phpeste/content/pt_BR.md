@@ -66,7 +66,7 @@ Comunidades
 # Palestrantes
 ## Quem vai estar no palco
 Em breve divulgaremos os palestrantes confirmados.
-[cta:Envie sua proposta de palestra|https://forms.gle/phpeste2026cfp]
+[cta:Envie sua proposta de palestra|https://forms.gle/j5a3pBKD9jBKoNTi6]
 
 <!-- section:local -->
 # Local
