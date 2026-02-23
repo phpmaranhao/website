@@ -334,28 +334,33 @@
     const speakers = new Map();
     if (sections.programacao) {
       let currentDay = '';
+      let currentRooms = [];
       lines(sections.programacao).forEach(line => {
         if (line.startsWith('[schedule-day:')) {
           const m = line.match(/\[schedule-day:([^\]]+)\]/);
-          if (m) currentDay = m[1];
+          if (m) { currentDay = m[1]; currentRooms = []; }
+        } else if (line.startsWith('[rooms:')) {
+          const m = line.match(/\[rooms:([^\]]+)\]/);
+          if (m) currentRooms = m[1].split('|');
         } else if (line.startsWith('[slot:')) {
           const m = line.match(/\[slot:([^\]]+)\]/);
           if (m) {
             const slotParts = m[1].split('|');
             const time = slotParts[0];
-            slotParts.slice(1).forEach(talk => {
+            slotParts.slice(1).forEach((talk, idx) => {
               const parts = talk.split('~');
               if (parts.length < 2) return;
               const title    = parts[0].trim().replace(/<br>/gi, ' ');
               const name     = parts[1].trim();
               const category = parts[2]?.trim() || '';
+              const room     = currentRooms[idx] || '';
               if (!speakers.has(name)) {
                 const slug = name.toLowerCase()
                   .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
                   .replace(/\s+/g, '-');
                 speakers.set(name, { name, slug, talks: [] });
               }
-              speakers.get(name).talks.push({ title, category, day: currentDay, time });
+              speakers.get(name).talks.push({ title, category, day: currentDay, time, room });
             });
           }
         }
@@ -415,23 +420,105 @@
       </div>`;
     document.body.appendChild(modal);
 
-    const openModal = (sp, bio) => {
-      const talk = sp.talks[0];
+    const iconCalendar = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="14" height="12" rx="1"/><line x1="1" y1="7" x2="15" y2="7"/><line x1="5" y1="1" x2="5" y2="5"/><line x1="11" y1="1" x2="11" y2="5"/></svg>`;
+    const iconClock    = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="4" x2="8" y2="8"/><line x1="8" y1="8" x2="11" y2="10"/></svg>`;
+    const iconRoom     = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5C5.5 1.5 3.5 3.5 3.5 6c0 3.5 4.5 8.5 4.5 8.5s4.5-5 4.5-8.5c0-2.5-2-4.5-4.5-4.5z"/><circle cx="8" cy="6" r="1.5"/></svg>`;
+
+    function buildTalkMeta(talk) {
       const icon = talk.category && categoryIcons[talk.category] ? categoryIcons[talk.category] : '';
-      const modalPhoto = document.getElementById('modalPhoto');
-      modalPhoto.onerror = () => { modalPhoto.src = `assets/palestrantes/${sp.slug}.svg`; modalPhoto.onerror = null; };
-      modalPhoto.src = `assets/palestrantes/${sp.slug}.jpg`;
-      document.getElementById('modalPhoto').alt = sp.name;
-      document.getElementById('modalName').textContent = sp.name;
-      document.getElementById('modalBio').innerHTML = bio ? marked.parse(bio) : '';
-      document.getElementById('modalTalkTitle').textContent = talk.title;
-      const iconCalendar = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="14" height="12" rx="1"/><line x1="1" y1="7" x2="15" y2="7"/><line x1="5" y1="1" x2="5" y2="5"/><line x1="11" y1="1" x2="11" y2="5"/></svg>`;
-      const iconClock    = `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="4" x2="8" y2="8"/><line x1="8" y1="8" x2="11" y2="10"/></svg>`;
-      document.getElementById('modalMeta').innerHTML = [
+      return [
         `<span class="modal-meta-item">${iconCalendar}${talk.day}</span>`,
         `<span class="modal-meta-item">${iconClock}${talk.time}</span>`,
+        talk.room     ? `<span class="modal-meta-item">${iconRoom}${talk.room}</span>` : '',
         talk.category ? `<span class="modal-meta-item modal-meta-trilha">${icon}${talk.category}</span>` : '',
       ].filter(Boolean).join('');
+    }
+
+    function clampBioSections(container, talks) {
+      const nodes    = Array.from(container.childNodes);
+      const sections = [];
+      let current    = { heading: null, nodes: [] };
+      nodes.forEach(node => {
+        if (node.nodeName === 'H2') {
+          sections.push(current);
+          current = { heading: node.cloneNode(true), nodes: [] };
+        } else {
+          current.nodes.push(node.cloneNode(true));
+        }
+      });
+      sections.push(current);
+      container.innerHTML = '';
+      const hasTalks = sections.some(s => s.heading);
+      let atividadesInserted = false;
+      sections.forEach(sec => {
+        if (!sec.nodes.length && !sec.heading) return;
+        if (sec.heading && !atividadesInserted) {
+          const atividadesEl = document.createElement('div');
+          atividadesEl.className = 'bio-atividades-label';
+          atividadesEl.textContent = 'Atividades';
+          container.appendChild(atividadesEl);
+          atividadesInserted = true;
+        }
+        const wrap = document.createElement('div');
+        wrap.className = 'bio-section';
+        if (sec.heading) {
+          wrap.appendChild(sec.heading);
+          // Injeta metadados buscando pelo título do heading
+          const headingText = sec.heading.textContent.trim().toLowerCase();
+          const talk = talks.find(t => t.title.toLowerCase() === headingText)
+                    || talks.find(t => headingText.includes(t.title.toLowerCase()));
+          if (talk) {
+            const metaEl = document.createElement('div');
+            metaEl.className = 'bio-talk-meta';
+            metaEl.innerHTML = buildTalkMeta(talk);
+            wrap.appendChild(metaEl);
+          }
+        }
+        if (sec.nodes.length) {
+          const content = document.createElement('div');
+          content.className = 'bio-section-content';
+          sec.nodes.forEach(n => content.appendChild(n));
+          wrap.appendChild(content);
+          const toggle = document.createElement('div');
+          toggle.className = 'bio-expand-toggle';
+          toggle.innerHTML = '<span class="bio-expand-btn">Ver mais</span>';
+          toggle.addEventListener('click', () => {
+            const expanded = content.classList.toggle('bio-section-expanded');
+            toggle.querySelector('.bio-expand-btn').textContent = expanded ? 'Ver menos' : 'Ver mais';
+          });
+          wrap.appendChild(toggle);
+        }
+        container.appendChild(wrap);
+      });
+    }
+
+    const openModal = (sp, bio) => {
+      const modalPhoto = document.getElementById('modalPhoto');
+      modalPhoto.onerror = () => { modalPhoto.src = 'assets/palestrantes/placeholder.svg'; modalPhoto.onerror = null; };
+      modalPhoto.src = `assets/palestrantes/${sp.slug}.jpg`;
+      modalPhoto.alt = sp.name;
+      document.getElementById('modalName').textContent = sp.name;
+
+      const modalBio      = document.getElementById('modalBio');
+      const divider       = modal.querySelector('.speaker-modal-divider');
+      const talkTitleEl   = document.getElementById('modalTalkTitle');
+      const metaEl        = document.getElementById('modalMeta');
+
+      if (bio) {
+        modalBio.innerHTML = marked.parse(bio);
+        clampBioSections(modalBio, sp.talks);
+        divider.hidden     = true;
+        talkTitleEl.hidden = true;
+        metaEl.hidden      = true;
+      } else {
+        modalBio.innerHTML  = '';
+        divider.hidden      = false;
+        talkTitleEl.hidden  = false;
+        metaEl.hidden       = false;
+        talkTitleEl.textContent  = sp.talks[0].title;
+        metaEl.innerHTML         = buildTalkMeta(sp.talks[0]);
+      }
+
       modal.classList.add('open');
       document.body.style.overflow = 'hidden';
     };
@@ -448,7 +535,7 @@
     const cards = sorted.map((sp, i) => `
       <div class="speaker-card" data-aos="fade-up" data-speaker="${i}" role="button" tabindex="0" aria-label="Ver perfil de ${sp.name}">
         <div class="speaker-photo-wrap">
-          <img src="assets/palestrantes/${sp.slug}.jpg" alt="${sp.name}" class="speaker-photo" width="400" height="400" onerror="this.src='assets/palestrantes/${sp.slug}.svg';this.onerror=null;">
+          <img src="assets/palestrantes/${sp.slug}.jpg" alt="${sp.name}" class="speaker-photo" width="400" height="400" onerror="this.src='assets/palestrantes/placeholder.svg';this.onerror=null;">
         </div>
         <div class="speaker-info">
           <h3 class="speaker-name">${sp.name}</h3>

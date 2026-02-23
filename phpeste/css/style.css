@@ -40,6 +40,7 @@
 
 /* ── Reset ───────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; }
 body {
   font-family: var(--font-body);
@@ -908,7 +909,7 @@ em { font-style: italic; }
 
 .speaker-modal {
   background: var(--espresso);
-  border: 1px solid rgba(196,160,122,.15);
+  border: 1px solid rgba(196,160,122,.35);
   border-radius: 6px;
   display: flex;
   gap: 0;
@@ -963,6 +964,92 @@ em { font-style: italic; }
   color: rgba(196,160,122,.8);
   line-height: 1.65;
 }
+@media (min-width: 769px) {
+  .speaker-modal-bio { font-size: .72rem; }
+  .bio-section-content { max-height: calc(4 * 1.65 * 0.72rem); }
+}
+.speaker-modal-bio p { margin: 0 0 .4rem; }
+.speaker-modal-bio p:last-child { margin-bottom: 0; }
+
+/* Seções colapsáveis */
+.bio-section { display: flex; flex-direction: column; }
+.bio-section-content {
+  position: relative;
+  overflow: hidden;
+  max-height: calc(4 * 1.65 * 0.875rem);
+  transition: max-height .3s ease;
+}
+.bio-section-content:not(.bio-section-expanded)::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1.4rem;
+  background: linear-gradient(to bottom, transparent, #231208);
+  pointer-events: none;
+}
+.bio-section-content.bio-section-expanded { max-height: 600px; }
+.bio-expand-toggle {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-top: .4rem;
+  cursor: pointer;
+  user-select: none;
+}
+.bio-expand-toggle::before,
+.bio-expand-toggle::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(196,160,122,.15);
+}
+.bio-expand-btn {
+  font-family: var(--font-body);
+  font-size: .7rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: rgba(196,160,122,.4);
+  white-space: nowrap;
+  line-height: 1;
+  transition: color .15s;
+}
+.bio-expand-toggle:hover .bio-expand-btn { color: var(--orange); }
+
+.bio-atividades-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: .85rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: rgba(240,230,211,.75);
+  padding-top: 2em;
+  margin-bottom: 1em;
+}
+
+.bio-talk-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem .6rem;
+  margin: .35rem 0 .6rem;
+}
+.bio-talk-meta .modal-meta-item {
+  font-size: .78rem;
+}
+
+.speaker-modal-bio h2 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: .8rem;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--orange);
+  margin: 1.1rem 0 .35rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(196,160,122,.1);
+}
+.speaker-modal-bio h2:first-child { margin-top: 0; padding-top: 0; border-top: none; }
 .speaker-modal-bio p { margin: 0; }
 .speaker-modal-divider {
   height: 1px;

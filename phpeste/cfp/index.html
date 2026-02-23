@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Submissão de Palestras PHPeste 2026 — Edição São Luís">
+  <meta name="theme-color" content="#231208">
+  <title>Submissão de Palestras — PHPeste 2026</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Rubik+Dirt&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar scrolled">
+    <div class="nav-container">
+      <a href="../" class="nav-logo" aria-label="PHPeste 2026">
+        <img src="../assets/logo.png" alt="PHPeste 2026" class="nav-logo-img" width="850" height="482">
+      </a>
+      <div class="nav-actions">
+        <a href="../" class="btn btn-outline btn-nav">Voltar ao site</a>
+        <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <nav class="mobile-nav-links">
+      <a href="../">Voltar ao site</a>
+    </nav>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Chamada de Trabalhos</h1>
+        <p class="hero-subtitle">Compartilhe conhecimento. Construa comunidade. Faça história.</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- AZULEJO BAR -->
+  <div class="azulejo-bar"></div>
+
+  <!-- MAIN CONTENT -->
+  <main class="section-sand">
+    <div class="container form-container">
+
+      <!-- Header card -->
+      <div class="card card--header">
+        <h2>Submissão de Palestras PHPeste 2026</h2>
+        <div class="description">
+          <p>O PHPeste está de volta, e desta vez em São Luís!</p>
+          <p>Se você tem conhecimento para compartilhar, experiências que valem a pena contar ou soluções que transformaram a forma como você desenvolve, este é o seu espaço. Queremos ouvir você!</p>
+          <p>Submeta sua proposta de palestra e faça parte de um dos maiores encontros da comunidade PHP do Nordeste. As vagas são limitadas, então não deixe para depois.</p>
+          <p><strong>Trilhas disponíveis:</strong> IA · Blockchain · Arquitetura · Integração · Testes · Escalabilidade · Segurança · Observabilidade · Carreira · SaaS</p>
+          <p>Preencha o formulário abaixo com os detalhes da sua proposta. Nossa curadoria analisará cada submissão com cuidado e retornará em breve com uma resposta.</p>
+        </div>
+        <p class="required-note">* Indica uma pergunta obrigatória</p>
+      </div>
+
+      <!-- Status: closed message (hidden by default) -->
+      <div id="status-closed" class="card card--closed" hidden>
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        <h2>Submissões encerradas</h2>
+        <p id="status-message">As submissões estão encerradas. Obrigado a todos que participaram!</p>
+      </div>
+
+      <!-- Status: connection error (hidden by default) -->
+      <div id="status-error" class="card card--error" hidden>
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <h2>Erro de conexão</h2>
+        <p>Não foi possível conectar ao servidor. Verifique sua conexão e tente novamente.</p>
+        <button class="btn btn-primary" onclick="location.reload()">Tentar novamente</button>
+      </div>
+
+      <!-- Form -->
+      <form id="cfp-form" novalidate hidden>
+        <!-- Nome completo -->
+        <div class="card">
+          <label class="field-label" for="nome">
+            Nome completo <span class="required">*</span>
+          </label>
+          <input type="text" id="nome" name="nome" required placeholder="Sua resposta">
+          <span class="error-msg" data-for="nome"></span>
+        </div>
+
+        <!-- E-mail -->
+        <div class="card">
+          <label class="field-label" for="email">
+            E-mail <span class="required">*</span>
+          </label>
+          <input type="email" id="email" name="email" required placeholder="Sua resposta">
+          <span class="error-msg" data-for="email"></span>
+        </div>
+
+        <!-- Whatsapp / Telegram -->
+        <div class="card">
+          <label class="field-label" for="telefone">
+            Whatsapp / Telegram <span class="required">*</span>
+          </label>
+          <input type="tel" id="telefone" name="telefone" required placeholder="98991234567 ou @usuario">
+          <span class="error-msg" data-for="telefone"></span>
+        </div>
+
+        <!-- Nome para crachá -->
+        <div class="card">
+          <label class="field-label" for="cracha">
+            Nome para crachá <span class="required">*</span>
+          </label>
+          <input type="text" id="cracha" name="cracha" required placeholder="Sua resposta">
+          <span class="error-msg" data-for="cracha"></span>
+        </div>
+
+        <!-- Mini bio -->
+        <div class="card">
+          <label class="field-label" for="bio">
+            Mini bio <span class="required">*</span>
+          </label>
+          <textarea id="bio" name="bio" required rows="4" placeholder="Sua resposta"></textarea>
+          <span class="error-msg" data-for="bio"></span>
+        </div>
+
+        <!-- Tipo de atividade -->
+        <div class="card">
+          <label class="field-label" for="tipo_atividade">
+            Tipo de atividade <span class="required">*</span>
+          </label>
+          <select id="tipo_atividade" name="tipo_atividade" required>
+            <option value="Palestra" selected>Palestra</option>
+            <option value="Minicurso">Minicurso</option>
+            <option value="Desafio estilo gincana">Desafio estilo gincana</option>
+          </select>
+          <span class="error-msg" data-for="tipo_atividade"></span>
+        </div>
+
+        <!-- Título da atividade -->
+        <div class="card">
+          <label class="field-label" for="titulo">
+            Título da atividade <span class="required">*</span>
+          </label>
+          <input type="text" id="titulo" name="titulo" required placeholder="Sua resposta">
+          <span class="error-msg" data-for="titulo"></span>
+        </div>
+
+        <!-- Resumo da atividade -->
+        <div class="card">
+          <label class="field-label" for="resumo">
+            Resumo da atividade <span class="required">*</span>
+          </label>
+          <textarea id="resumo" name="resumo" required rows="5" placeholder="Sua resposta"></textarea>
+          <span class="error-msg" data-for="resumo"></span>
+        </div>
+
+        <!-- Trilha -->
+        <div class="card">
+          <label class="field-label" for="trilha">
+            Trilha <span class="required">*</span>
+          </label>
+          <select id="trilha" name="trilha" required>
+            <option value="" disabled selected>Escolher</option>
+            <option value="Arquitetura">Arquitetura</option>
+            <option value="Blockchain">Blockchain</option>
+            <option value="Carreira">Carreira</option>
+            <option value="Escalabilidade">Escalabilidade</option>
+            <option value="IA">IA</option>
+            <option value="Integração">Integração</option>
+            <option value="Observabilidade">Observabilidade</option>
+            <option value="SaaS">SaaS</option>
+            <option value="Segurança">Segurança</option>
+            <option value="Testes">Testes</option>
+          </select>
+          <span class="error-msg" data-for="trilha"></span>
+        </div>
+
+        <!-- Foto -->
+        <div class="card">
+          <label class="field-label" for="foto">
+            Sua foto para o site (opcional)
+          </label>
+          <p class="field-hint">Faça upload de 1 arquivo de imagem. O tamanho máximo é de 1 MB.</p>
+          <div class="file-upload" id="foto-upload">
+            <input type="file" id="foto" name="foto" accept="image/*">
+            <div class="file-upload__label">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <span>Adicionar arquivo</span>
+            </div>
+            <span class="file-name" id="foto-name"></span>
+          </div>
+          <span class="error-msg" data-for="foto"></span>
+        </div>
+
+        <!-- Material -->
+        <div class="card">
+          <label class="field-label" for="material">
+            Material da atividade (opcional)
+          </label>
+          <p class="field-hint">Faça upload de 1 arquivo: PDF, áudio, documento, imagem, apresentação ou vídeo. O tamanho máximo é de 20 MB.</p>
+          <div class="file-upload" id="material-upload">
+            <input type="file" id="material" name="material" accept=".pdf,.doc,.docx,.ppt,.pptx,.odt,.odp,.jpg,.jpeg,.png,.gif,.mp3,.mp4,.wav,.avi,.mov,.webm">
+            <div class="file-upload__label">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <span>Adicionar arquivo</span>
+            </div>
+            <span class="file-name" id="material-name"></span>
+          </div>
+          <span class="error-msg" data-for="material"></span>
+        </div>
+
+        <!-- Actions -->
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Enviar</button>
+          <button type="reset" class="btn btn--clear">Limpar formulário</button>
+        </div>
+      </form>
+
+      <!-- Success message (hidden by default) -->
+      <div id="success-msg" class="card card--success" hidden>
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <h2>Proposta enviada!</h2>
+        <p>Obrigado por submeter sua proposta. Nossa curadoria analisará com cuidado e retornará em breve.</p>
+        <button class="btn btn-primary" onclick="location.reload()">Enviar outra resposta</button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-body">
+        <a href="../" class="footer-logo" aria-label="PHPeste 2026">
+          <img src="../assets/logo.png" alt="PHPeste 2026" class="footer-logo-img" width="850" height="482">
+        </a>
+        <p>PHPeste 2026 — São Luís, Maranhão</p>
+        <p class="footer-copy">Realização: PHP Maranhão</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

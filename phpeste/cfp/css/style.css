@@ -1,0 +1,593 @@
+/* ============================================================
+   CFP PHPeste 2026 — Stylesheet
+   Consistent with phpeste/css/style.css design system
+   ============================================================ */
+
+/* ── Custom fonts ────────────────────────────────────────── */
+@font-face {
+  font-family: 'Eldes';
+  src: url('../../assets/fonts/eldes.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Tokens ──────────────────────────────────────────────── */
+:root {
+  --orange:   #D4743A;
+  --black:    #0D0906;
+  --espresso: #231208;
+  --sand:     #C4A07A;
+  --sand-lt:  #F0E6D3;
+  --crimson:  #A52830;
+  --yellow:   #F5C828;
+  --blue:     #2845C8;
+  --green:    #3A6E28;
+  --white:    #FFFFFF;
+  --off-white:#FAF6EF;
+
+  /* Form-specific */
+  --card-bg:      #FFFFFF;
+  --error:        #A52830;
+  --text:         #231208;
+  --text-light:   #6B5B4E;
+  --input-border: #C4A07A;
+  --input-focus:  #D4743A;
+
+  --font-display: 'Rubik Dirt', system-ui, serif;
+  --font-heading: 'Eldes', Georgia, serif;
+  --font-body:    'Lora', Georgia, serif;
+
+  --radius:    4px;
+  --container: 1100px;
+  --nav-h:     72px;
+
+  --texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+/* ── Reset ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--off-white);
+  color: var(--espresso);
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* ── Typography ─────────────────────────────────────────── */
+h1, h2, h3 { font-family: var(--font-heading); line-height: 1.2; }
+h1 { font-size: clamp(2.4rem, 5vw, 4.2rem); }
+h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); }
+h3 { font-size: clamp(1.2rem, 2vw, 1.6rem); }
+p  { font-size: clamp(1rem, 1.5vw, 1.125rem); }
+
+/* ── Container ──────────────────────────────────────────── */
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 5vw, 3rem);
+}
+
+/* ── Buttons ────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 1rem;
+  padding: .75rem 1.75rem;
+  border-radius: var(--radius);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s, background .15s;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.25); }
+.btn:active { transform: translateY(0); }
+
+.btn-primary  { background: var(--orange); color: var(--black); border-color: var(--orange); }
+.btn-primary:hover { background: #c0632a; }
+.btn-outline  { background: transparent; color: var(--white); border-color: var(--white); }
+.btn-outline:hover { background: rgba(255,255,255,.1); }
+.btn-nav { padding: .55rem 1.25rem; font-size: .9rem; }
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ── Navbar ─────────────────────────────────────────────── */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: var(--nav-h);
+  background: var(--espresso);
+  box-shadow: 0 2px 20px rgba(0,0,0,.4);
+}
+
+.nav-container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 5vw, 3rem);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.nav-logo-img {
+  height: 50px;
+  width: auto;
+  display: block;
+  filter: invert(1) brightness(2);
+  transition: filter .2s;
+}
+.nav-logo:hover .nav-logo-img {
+  filter: invert(1) brightness(2) sepia(1) saturate(3) hue-rotate(340deg);
+}
+
+.nav-actions { display: flex; align-items: center; gap: 1rem; }
+
+/* ── Hamburger ──────────────────────────────────────────── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: .25rem;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: transform .25s, opacity .25s;
+}
+.hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Mobile Menu ────────────────────────────────────────── */
+.mobile-menu {
+  position: fixed;
+  top: var(--nav-h);
+  left: 0; right: 0;
+  background: var(--espresso);
+  z-index: 99;
+  padding: 1.5rem;
+  display: none;
+  border-bottom: 3px solid var(--orange);
+}
+.mobile-menu.open { display: block; }
+.mobile-nav-links { display: flex; flex-direction: column; gap: 1rem; }
+.mobile-nav-links a {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 1.25rem;
+  color: var(--sand-lt);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding: .5rem 0;
+  border-bottom: 1px solid rgba(196,160,122,.15);
+}
+
+/* ── Hero ───────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: calc(var(--nav-h) + 3rem) 0 3rem;
+  background-color: var(--espresso);
+  background-image:
+    var(--texture),
+    radial-gradient(ellipse at 70% 50%, rgba(212,116,58,.18) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 80%, rgba(58,110,40,.12) 0%, transparent 50%);
+  color: var(--white);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  color: var(--sand);
+  font-style: italic;
+}
+
+/* ── Azulejo Bar ────────────────────────────────────────── */
+.azulejo-bar {
+  height: 8px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--orange)  0px, var(--orange)  32px,
+    var(--espresso) 32px, var(--espresso) 40px,
+    var(--yellow)  40px, var(--yellow)  72px,
+    var(--espresso) 72px, var(--espresso) 80px,
+    var(--crimson) 80px, var(--crimson) 112px,
+    var(--espresso) 112px, var(--espresso) 120px
+  );
+}
+
+/* ── Section backgrounds ────────────────────────────────── */
+.section-sand { background: var(--sand-lt); color: var(--espresso); }
+
+/* ── Form layout ────────────────────────────────────────── */
+.form-container {
+  max-width: 680px;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+/* ── Cards ──────────────────────────────────────────────── */
+.card {
+  background: var(--card-bg);
+  border: 1px solid rgba(196, 160, 122, 0.3);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 12px;
+}
+
+.card--header {
+  border-top: 10px solid var(--orange);
+  margin-bottom: 12px;
+}
+
+.card--header h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  color: var(--text);
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+.card--header .description p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.card--header .description strong {
+  color: var(--orange);
+}
+
+.required-note {
+  font-size: 0.8rem;
+  color: var(--error);
+  margin-top: 8px;
+}
+
+/* ── Status cards (closed / error) ──────────────────────── */
+.card--closed,
+.card--error {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.card--closed svg { color: var(--crimson); margin-bottom: 16px; }
+.card--error svg  { color: var(--yellow);  margin-bottom: 16px; }
+
+.card--closed h2,
+.card--error h2 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+
+.card--closed p,
+.card--error p {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  margin-bottom: 24px;
+}
+
+/* ── Form fields ────────────────────────────────────────── */
+.field-label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.required {
+  color: var(--error);
+  margin-left: 2px;
+}
+
+.field-hint {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin-bottom: 12px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea,
+select {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text);
+  background: var(--card-bg);
+  border: none;
+  border-bottom: 1px solid var(--input-border);
+  padding: 8px 0;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+textarea:focus,
+select:focus {
+  border-bottom-color: var(--input-focus);
+  border-bottom-width: 2px;
+  margin-bottom: -1px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+  border: 1px solid var(--input-border);
+  border-radius: 4px;
+  padding: 12px;
+}
+
+textarea:focus {
+  border: 2px solid var(--input-focus);
+  margin-bottom: -1px;
+  padding: 11px;
+}
+
+select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' fill='none' stroke='%236B5B4E' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  padding-right: 24px;
+}
+
+::placeholder {
+  color: var(--text-light);
+  opacity: 0.6;
+}
+
+/* ── File upload ────────────────────────────────────────── */
+.file-upload {
+  position: relative;
+}
+
+.file-upload input[type="file"] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.file-upload__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: 1px solid var(--input-border);
+  border-radius: 4px;
+  color: var(--orange);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.file-upload:hover .file-upload__label {
+  background: rgba(212, 116, 58, 0.06);
+  border-color: var(--orange);
+}
+
+.file-name {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin-top: 8px;
+}
+
+/* ── Error messages ─────────────────────────────────────── */
+.error-msg {
+  display: none;
+  font-size: 0.8rem;
+  color: var(--error);
+  margin-top: 8px;
+}
+
+.error-msg.visible {
+  display: block;
+}
+
+.card.has-error input,
+.card.has-error textarea,
+.card.has-error select {
+  border-bottom-color: var(--error);
+}
+
+.card.has-error .file-upload__label {
+  border-color: var(--error);
+}
+
+/* ── Form actions ───────────────────────────────────────── */
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+  padding: 0 4px;
+}
+
+.btn--clear {
+  background: none;
+  border: none;
+  color: var(--orange);
+  padding: 10px 16px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: background 0.2s;
+}
+
+.btn--clear:hover {
+  background: rgba(212, 116, 58, 0.08);
+}
+
+/* ── Success card ───────────────────────────────────────── */
+.card--success {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.card--success svg {
+  color: var(--green);
+  margin-bottom: 16px;
+}
+
+.card--success h2 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+
+.card--success p {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  margin-bottom: 24px;
+}
+
+/* ── Footer ─────────────────────────────────────────────── */
+.footer {
+  background: var(--black);
+  color: var(--sand);
+  padding: 3rem 0;
+  font-family: var(--font-body);
+  border-top: 8px solid;
+  border-image: repeating-linear-gradient(
+    90deg,
+    var(--orange)  0px, var(--orange)  32px,
+    var(--espresso) 32px, var(--espresso) 40px,
+    var(--yellow)  40px, var(--yellow)  72px,
+    var(--espresso) 72px, var(--espresso) 80px,
+    var(--crimson) 80px, var(--crimson) 112px,
+    var(--espresso) 112px, var(--espresso) 120px
+  ) 1;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: baseline;
+  gap: .25rem;
+  margin-bottom: 1.5rem;
+}
+
+.footer-logo-img {
+  height: 80px;
+  width: auto;
+  display: block;
+  filter: invert(1) brightness(1.5);
+  margin-bottom: 1.5rem;
+}
+
+.footer-body p {
+  margin-bottom: .5rem;
+  font-size: .95rem;
+}
+
+.footer-copy {
+  margin-top: 1.5rem;
+  font-size: .85rem;
+  color: rgba(196,160,122,.5);
+}
+
+/* ── Loading spinner ────────────────────────────────────── */
+.btn-primary.loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.btn-primary.loading::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 50%;
+  left: 50%;
+  margin: -9px 0 0 -9px;
+  border: 2px solid var(--black);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .nav-actions .btn-outline { display: none; }
+  .hamburger { display: flex; }
+}
+
+@media (max-width: 480px) {
+  .form-container {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+  .card {
+    padding: 20px 16px;
+  }
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .form-actions .btn-primary {
+    text-align: center;
+    justify-content: center;
+  }
+  .hero {
+    padding: calc(var(--nav-h) + 2rem) 0 2rem;
+  }
+}
