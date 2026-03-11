@@ -380,6 +380,8 @@ em { font-style: italic; }
 .section-crimson .section-subtitle { color: rgba(255,255,255,.8); }
 .section-crimson .btn-primary { background: var(--yellow); color: var(--black); border-color: var(--yellow); }
 .section-crimson .btn-primary:hover { background: #e0b420; }
+.section-orange .btn-primary { background: var(--espresso); color: var(--sand-lt); border-color: var(--espresso); }
+.section-orange .btn-primary:hover { background: #3a2010; }
 
 /* ── Sobre ───────────────────────────────────────────────── */
 .sobre-text {
