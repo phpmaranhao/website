@@ -46,7 +46,8 @@ Comunidades
 [slot:11:00|Tema a definir|Tema a definir|Tema a definir]
 [lunch:12:00]
 [slot:14:00|Tema a definir|Tema a definir|Tema a definir]
-[slot:15:00|MCP Prático com PHP~Ricardo Coelho~IA|Tema a definir|Tema a definir]
+[slot:15:00|Tema a definir|Tema a definir|Tema a definir]
+<!-- HIDDEN: [slot:15:00|MCP Prático com PHP~Ricardo Coelho~IA|Tema a definir|Tema a definir] -->
 [slot:16:00|Escolhendo um gateway de pagamentos em 2026~Evaldo Barbosa~Integração|Tema a definir|Tema a definir]
 [slot:17:00|Tema a definir|Tema a definir|Tema a definir]
 
@@ -59,7 +60,8 @@ Comunidades
 [lunch:12:00]
 [slot:14:00|Tema a definir|Tema a definir|Tema a definir]
 [slot:15:00|Tema a definir|Tema a definir|Tema a definir]
-[slot:16:00|Tema a definir~Er Galvão|Tema a definir|Tema a definir]
+[slot:16:00|Tema a definir|Tema a definir|Tema a definir]
+<!-- HIDDEN: [slot:16:00|Tema a definir~Er Galvão|Tema a definir|Tema a definir] -->
 [slot:17:00|Você não precisa aprender PHP~Bruno Fernandes~Carreira|Tema a definir|Tema a definir]
 
 <!-- section:palestrantes -->
