@@ -475,6 +475,19 @@ em { font-style: italic; }
 }
 .ticket-pending::before { background: rgba(255,255,255,.2); }
 
+.ticket-past {
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.4);
+  border: 1px solid rgba(255,255,255,.08);
+}
+.ticket-past::before { background: rgba(255,255,255,.1); }
+.ticket-past .ticket-value,
+.ticket-past .ticket-name {
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: rgba(255,255,255,.3);
+}
+
 .ticket-lote {
   font-family: system-ui, -apple-system, sans-serif;
   font-size: .75rem;

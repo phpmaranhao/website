@@ -169,15 +169,20 @@
       html += '<div class="tickets-grid">' + ticketLines.map((t, i) => {
         const [, name, price, deadline, status] = t.match(/\[ticket:([^:]+):([^:]+):([^:]+):([^\]]+)\]/) || [];
         const isActive = status === 'active';
+        const isPast = status === 'past';
+        const cardClass = isActive ? 'ticket-active' : (isPast ? 'ticket-past' : 'ticket-pending');
+        const footer = isActive
+          ? `<a href="https://eventiza.com.br/evento/phpeste-2026" target="_blank" rel="noopener" class="btn btn-ticket">Comprar agora</a>`
+          : (isPast ? `<span class="ticket-soon">Encerrado</span>` : `<span class="ticket-soon">Em breve</span>`);
         return `
-          <div class="ticket-card ${isActive ? 'ticket-active' : 'ticket-pending'}" data-aos="fade-up" data-aos-delay="${i * 100}">
-            <div class="ticket-lote">${deadline}<span class="ticket-lote-note">ou enquanto durarem as vagas</span></div>
+          <div class="ticket-card ${cardClass}" data-aos="fade-up" data-aos-delay="${i * 100}">
+            <div class="ticket-lote">${deadline}${isPast ? '' : '<span class="ticket-lote-note">ou enquanto durarem as vagas</span>'}</div>
             <div class="ticket-name">${name}</div>
             <div class="ticket-price">
               <span class="ticket-currency">R$</span>
               <span class="ticket-value">${price}</span>
             </div>
-            ${isActive ? `<a href="https://eventiza.com.br/evento/phpeste-2026" target="_blank" rel="noopener" class="btn btn-ticket">Comprar agora</a>` : `<span class="ticket-soon">Em breve</span>`}
+            ${footer}
           </div>`;
       }).join('') + '</div>';
     }
