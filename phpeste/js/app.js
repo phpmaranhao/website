@@ -199,16 +199,21 @@
       }).filter(Boolean);
 
       const slug = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+      // A fonte de t\u00edtulos (Rye) n\u00e3o tem "\u00e7": c + v\u00edrgula reposicionada (.ced)
+      const cedilla = s => String(s).replace(/[\u00e7\u00c7]/g, m =>
+        (m === '\u00e7' ? 'c' : 'C') + '<span class="ced">,</span>');
       let grid = '';
       TIER_ORDER.forEach(tier => {
         const group = sponsors.filter(s => s.tier === tier);
-        if (!group.length) return;
-        grid += `<div class="sponsor-tier tier-${slug(tier)}">
-          <div class="sponsor-tier-label">${tier}</div>
-          <div class="sponsor-tier-logos">${group.map(s => `
+        const cards = group.length
+          ? group.map(s => `
             <a class="sponsor-card is-${s.bg === 'dark' ? 'dark' : 'light'}" href="${s.href}" aria-label="${s.name}">
               <img src="${s.logo}" alt="${s.name}" loading="lazy">
-            </a>`).join('')}</div>
+            </a>`).join('')
+          : `<div class="sponsor-card sponsor-card-empty">Sua marca aqui</div>`;
+        grid += `<div class="sponsor-tier tier-${slug(tier)}">
+          <div class="sponsor-tier-label">${cedilla(tier)}</div>
+          <div class="sponsor-tier-logos">${cards}</div>
         </div>`;
       });
       html += `<div class="sponsors">${grid}</div>`;

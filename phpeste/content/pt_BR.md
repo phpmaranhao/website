@@ -83,7 +83,7 @@ O PHPeste 2026 acontece no **Auditório do CEUMA Renascença**, em São Luís, M
 # Patrocinadores
 ## Divulgue sua empresa no maior evento de PHP do Nordeste
 Quer levar sua marca para milhares de profissionais da área de tecnologia? Fale com a gente.
-[sponsor:Babaçu:KeepCloud:patrocinadores/keepcloud.svg:patrocinadores/keepcloud/:light]
+[sponsor:Juçara:KeepCloud:patrocinadores/keepcloud.svg:patrocinadores/keepcloud/:light]
 [sponsor:Buriti:Nexy:patrocinadores/nexy.png:patrocinadores/nexy/:dark]
 [cta:Seja patrocinador|https://wa.me/5598991322900]
 
@@ -91,8 +91,8 @@ Quer levar sua marca para milhares de profissionais da área de tecnologia? Fale
 # Ingressos
 ## Escolha seu compasso
 [ticket:No Compasso:199,90:Lote 1 · encerrado:past]
-[ticket:No Embalo:249,90:Lote 2 · até 01/07/2026:active]
-[ticket:No Estouro:299,90:Lote 3 · até 01/10/2026:pending]
+[ticket:No Embalo:249,90:Lote 2 · encerrado:past]
+[ticket:No Estouro:299,90:Lote 3 · até 01/10/2026:active]
 [cta:Comprar ingresso|https://eventiza.com.br/evento/phpeste-2026]
 
 <!-- section:footer -->

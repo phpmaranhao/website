@@ -131,3 +131,13 @@ a { color: inherit; text-decoration: none; }
 .sponsor-footer a { color: var(--orange); }
 
 .error { text-align: center; padding: 4rem 1.5rem; }
+
+/* Cedilha simulada: a fonte Rye não tem "ç".
+   O "," segue o "c" no HTML; aqui zeramos sua largura e o
+   reposicionamos sob o "c" para parecer uma cedilha. */
+.ced {
+  display: inline-block;
+  width: 0;
+  transform: translate(-0.58em, 0.10em);
+  pointer-events: none;
+}

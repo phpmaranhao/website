@@ -61,7 +61,7 @@
   if (meta.nome) document.title = meta.nome + ' — Patrocinador PHPeste 2026';
 
   const logoBg = meta.logo_bg === 'dark' ? 'is-dark' : 'is-light';
-  const badge = meta.tipo ? `<span class="badge">Patrocinador ${escapeHtml(meta.tipo)}</span>` : '';
+  const badge = meta.tipo ? `<span class="badge">Patrocinador ${cedilla(escapeHtml(meta.tipo))}</span>` : '';
   const logo = meta.logo
     ? `<div class="logo-plate ${logoBg}"><img src="${escapeHtml(base + meta.logo)}" alt="${escapeHtml(meta.nome || '')}"></div>`
     : '';
@@ -110,5 +110,12 @@
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, c =>
       ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+
+  // A fonte de títulos (Rye) não tem "ç": renderiza c + vírgula
+  // reposicionada via CSS (.ced) para simular a cedilha.
+  function cedilla(text) {
+    return String(text).replace(/[çÇ]/g, m =>
+      (m === 'ç' ? 'c' : 'C') + '<span class="ced">,</span>');
   }
 })();

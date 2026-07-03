@@ -1151,6 +1151,20 @@ em { font-style: italic; }
 .sponsor-card.is-dark  { background: var(--espresso); border-color: rgba(255, 255, 255, .14); }
 .sponsor-card img { width: auto; }
 
+/* Cota sem patrocinador (placeholder) */
+.sponsor-card-empty {
+  border-style: dashed;
+  border-color: rgba(35, 18, 8, .28);
+  background: transparent;
+  color: rgba(35, 18, 8, .55);
+  font-family: var(--font-heading);
+  font-size: .85rem;
+  letter-spacing: .06em;
+  min-height: 5.5rem;
+  min-width: 12rem;
+}
+.sponsor-card-empty:hover { transform: none; box-shadow: none; }
+
 /* Destaque decrescente por cota: Babaçu > Buriti > Juçara */
 .tier-babacu .sponsor-tier-label { font-size: 1rem; color: var(--orange); }
 .tier-babacu .sponsor-card img { max-height: 92px; }
@@ -1160,4 +1174,12 @@ em { font-style: italic; }
 @media (max-width: 480px) {
   .tier-babacu .sponsor-card img { max-height: 72px; }
   .sponsor-card { padding: 1.25rem 1.5rem; }
+}
+
+/* Cedilha simulada na fonte Rye (sem "ç") — ver .sponsor-tier-label / .badge */
+.ced {
+  display: inline-block;
+  width: 0;
+  transform: translate(-0.58em, 0.10em);
+  pointer-events: none;
 }

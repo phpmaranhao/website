@@ -1,6 +1,6 @@
 ---
 nome: KeepCloud
-tipo: Babaçu
+tipo: Juçara
 cor: #019ee0
 logo: keepcloud.svg
 logo_bg: light
