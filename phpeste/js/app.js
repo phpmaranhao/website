@@ -133,16 +133,18 @@
     if (!bodyEl) return;
 
     // Tokens especiais: [ticket:...], [map:...], [waze:...], [cta:...]
-    const ticketLines = secLines.filter(l => l.startsWith('[ticket:'));
-    const mapLine     = secLines.find(l => l.startsWith('[map:'));
-    const wazeLine    = secLines.find(l => l.startsWith('[waze:'));
-    const ctaLine     = secLines.find(l => l.startsWith('[cta:'));
+    const ticketLines  = secLines.filter(l => l.startsWith('[ticket:'));
+    const sponsorLines = secLines.filter(l => l.startsWith('[sponsor:'));
+    const mapLine      = secLines.find(l => l.startsWith('[map:'));
+    const wazeLine     = secLines.find(l => l.startsWith('[waze:'));
+    const ctaLine      = secLines.find(l => l.startsWith('[cta:'));
 
     // Linhas de conteúdo puro (sem tokens e sem headings h1/h2)
     const bodyLines = secLines.filter(l =>
       !l.startsWith('# ') &&
       !l.startsWith('## ') &&
       !l.startsWith('[ticket:') &&
+      !l.startsWith('[sponsor:') &&
       !l.startsWith('[map:') &&
       !l.startsWith('[waze:') &&
       !l.startsWith('[cta:')
@@ -185,6 +187,31 @@
             ${footer}
           </div>`;
       }).join('') + '</div>';
+    }
+
+    // Grade de patrocinadores agrupada por cota (ordem de destaque)
+    if (sponsorLines.length) {
+      const TIER_ORDER = ['Babaçu', 'Buriti', 'Juçara'];
+      const sponsors = sponsorLines.map(l => {
+        const [, tier, name, logo, href, bg] =
+          l.match(/\[sponsor:([^:]+):([^:]+):([^:]+):([^:]+):([^\]]+)\]/) || [];
+        return tier ? { tier, name, logo, href, bg } : null;
+      }).filter(Boolean);
+
+      const slug = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+      let grid = '';
+      TIER_ORDER.forEach(tier => {
+        const group = sponsors.filter(s => s.tier === tier);
+        if (!group.length) return;
+        grid += `<div class="sponsor-tier tier-${slug(tier)}">
+          <div class="sponsor-tier-label">${tier}</div>
+          <div class="sponsor-tier-logos">${group.map(s => `
+            <a class="sponsor-card is-${s.bg === 'dark' ? 'dark' : 'light'}" href="${s.href}" aria-label="${s.name}">
+              <img src="${s.logo}" alt="${s.name}" loading="lazy">
+            </a>`).join('')}</div>
+        </div>`;
+      });
+      html += `<div class="sponsors">${grid}</div>`;
     }
 
     // CTA genérico — suporta [cta:label] e [cta:label|url]

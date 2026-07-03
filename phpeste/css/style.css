@@ -1113,3 +1113,51 @@ em { font-style: italic; }
   .btn-lg    { width: 100%; justify-content: center; }
   .numeros-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ── Patrocinadores (grade por cota) ─────────────────────── */
+.sponsors {
+  display: flex;
+  flex-direction: column;
+  gap: 2.75rem;
+  margin-top: 1.5rem;
+}
+.sponsor-tier { text-align: center; }
+.sponsor-tier-label {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  font-size: .8rem;
+  color: var(--crimson);
+  margin-bottom: 1.1rem;
+}
+.sponsor-tier-logos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  justify-content: center;
+  align-items: stretch;
+}
+.sponsor-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 2.25rem;
+  border-radius: var(--radius);
+  border: 2px solid rgba(35, 18, 8, .12);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.sponsor-card:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(35, 18, 8, .18); }
+.sponsor-card.is-light { background: var(--white); }
+.sponsor-card.is-dark  { background: var(--espresso); border-color: rgba(255, 255, 255, .14); }
+.sponsor-card img { width: auto; }
+
+/* Destaque decrescente por cota: Babaçu > Buriti > Juçara */
+.tier-babacu .sponsor-tier-label { font-size: 1rem; color: var(--orange); }
+.tier-babacu .sponsor-card img { max-height: 92px; }
+.tier-buriti .sponsor-card img { max-height: 64px; }
+.tier-jucara .sponsor-card img { max-height: 48px; }
+
+@media (max-width: 480px) {
+  .tier-babacu .sponsor-card img { max-height: 72px; }
+  .sponsor-card { padding: 1.25rem 1.5rem; }
+}
