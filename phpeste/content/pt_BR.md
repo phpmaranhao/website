@@ -41,7 +41,7 @@ Comunidades
 [schedule-day:Sex · 16/10]
 [rooms:Auditório Cazumbá|Sala Catirina|Sala Pai Francisco]
 [slot:08:00|credenciamento]
-[slot:09:00|Tema a definir~Helena Saminez|Tema a definir|Tema a definir]
+[slot:09:00|A Nova Arquitetura da<br>Inteligência Artificial~Helena Saminez~IA|Tema a definir|Tema a definir]
 [slot:10:00|Tema a definir~Abisai Santos|Tema a definir|Tema a definir]
 [slot:11:00|Tema a definir|Tema a definir|Tema a definir]
 [lunch:12:00]
@@ -67,7 +67,18 @@ Comunidades
 <!-- section:palestrantes -->
 # Palestrantes
 ## Quem vai estar no palco
-Em breve divulgaremos os palestrantes confirmados.
+[speaker:Alisson Silva|Shift Left em projetos PHP: bloqueando problemas antes do pipeline|Testes]
+[speaker:Bruno Oliveira|Minicurso · Integração de IA no ciclo de desenvolvimento|IA]
+[speaker:Daniel He4rt|Laravel Modular na Prática: como organizar um monolito sem virar uma bomba|Arquitetura]
+[speaker:Lia Mariana|O segredo dos produtos de sucesso: qualidade como cultura|Testes]
+[speaker:Marcele Monroe|Do Framework à IA: construindo PHP multi-tenant e escalável|Escalabilidade]
+[speaker:Maria Katriane|Pertencer também é tech: a comunidade que me trouxe de volta|Carreira]
+[speaker:Maria Katriane|Do problema ao produto: os bastidores da criação do NutriUp]
+[speaker:Mônica Craveiro|Server Sent Events (SSE): seu PHP já faz tempo real, você só não sabia|Integração]
+[speaker:Rodrigo Castro|PHP no mobile? Já pensou? Descobrindo o NativePHP]
+[speaker:Tati Moreno|Do problema ao produto: os bastidores da criação do NutriUp]
+[speaker:Thais Nunes|Como imaginar novos futuros?]
+[speaker:Victor Freire|A Nova Arquitetura da Inteligência Artificial|IA]
 [cta:Envie sua proposta de palestra|https://forms.gle/j5a3pBKD9jBKoNTi6]
 
 <!-- section:local -->

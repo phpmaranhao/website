@@ -404,6 +404,28 @@
       });
     }
 
+    // Palestrantes declarados na própria seção: [speaker:Nome|Palestra|Trilha]
+    secLines.filter(l => l.startsWith('[speaker:')).forEach(line => {
+      const m = line.match(/\[speaker:([^\]]+)\]/);
+      if (!m) return;
+      const [rawName, rawTitle, rawCategory] = m[1].split('|');
+      const name = (rawName || '').trim();
+      if (!name) return;
+      if (!speakers.has(name)) {
+        const slug = name.toLowerCase()
+          .normalize('NFD').replace(/[^ -~]/g, '')
+          .replace(/\s+/g, '-');
+        speakers.set(name, { name, slug, talks: [] });
+      }
+      const sp = speakers.get(name);
+      sp.talks = sp.talks.filter(t => t.title.toLowerCase() !== 'tema a definir');
+      sp.talks.push({
+        title:    (rawTitle || 'Tema a definir').trim(),
+        category: (rawCategory || '').trim(),
+        day: '', time: '', room: '',
+      });
+    });
+
     const sorted = [...speakers.values()].sort((a, b) =>
       a.name.localeCompare(b.name, 'pt-BR')
     );
@@ -464,8 +486,8 @@
     function buildTalkMeta(talk) {
       const icon = talk.category && categoryIcons[talk.category] ? categoryIcons[talk.category] : '';
       return [
-        `<span class="modal-meta-item">${iconCalendar}${talk.day}</span>`,
-        `<span class="modal-meta-item">${iconClock}${talk.time}</span>`,
+        talk.day      ? `<span class="modal-meta-item">${iconCalendar}${talk.day}</span>` : '',
+        talk.time     ? `<span class="modal-meta-item">${iconClock}${talk.time}</span>` : '',
         talk.room     ? `<span class="modal-meta-item">${iconRoom}${talk.room}</span>` : '',
         talk.category ? `<span class="modal-meta-item modal-meta-trilha">${icon}${talk.category}</span>` : '',
       ].filter(Boolean).join('');
