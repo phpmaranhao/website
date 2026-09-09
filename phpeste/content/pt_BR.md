@@ -42,7 +42,7 @@ Comunidades
 [rooms:Auditório Cazumbá|Sala Catirina|Sala Pai Francisco]
 [slot:08:00|credenciamento]
 [slot:09:00|A Nova Arquitetura da<br>Inteligência Artificial~Helena Saminez~IA|Tema a definir|Tema a definir]
-[slot:10:00|Tema a definir~Abisai Santos|Tema a definir|Tema a definir]
+[slot:10:00|Viva a comunidade: o que empresa e<br>faculdade não ensinam~Abisai Santos~Carreira|Tema a definir|Tema a definir]
 [slot:11:00|Tema a definir|Tema a definir|Tema a definir]
 [lunch:12:00]
 [slot:14:00|Tema a definir|Tema a definir|Tema a definir]
