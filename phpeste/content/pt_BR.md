@@ -79,7 +79,6 @@ Comunidades
 [speaker:Tati Moreno|Do problema ao produto: os bastidores da criação do NutriUp]
 [speaker:Thais Nunes|Como imaginar novos futuros?]
 [speaker:Victor Freire|A Nova Arquitetura da Inteligência Artificial|IA]
-[cta:Envie sua proposta de palestra|https://forms.gle/j5a3pBKD9jBKoNTi6]
 
 <!-- section:local -->
 # Local
